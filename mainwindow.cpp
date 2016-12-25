@@ -20,6 +20,7 @@ void MainWindow::addList()
     listActionsButton->setText("...");
 
     QHBoxLayout *titleRowLayout = new QHBoxLayout();
+    titleRowLayout->setMargin(0);
     titleRowLayout->addWidget(listNameInput);
     titleRowLayout->addWidget(listActionsButton);
 
@@ -32,6 +33,7 @@ void MainWindow::addList()
     addNoteButton->setText("Add a note...");
 
     QVBoxLayout *listLayout = new QVBoxLayout();
+    listLayout->setMargin(0);
     listLayout->addWidget(titleRow);
     listLayout->addWidget(note);
     listLayout->addWidget(addNoteButton);
