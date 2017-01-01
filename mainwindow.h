@@ -18,9 +18,12 @@ public:
 
 public slots:
     void addList();
+    void addNote(QWidget *scrollArea);
+    void showListActions();
 
 private:
     Ui::MainWindow *ui;
+    QToolButton *listActionsButton;
 };
 
 #endif // MAINWINDOW_H
