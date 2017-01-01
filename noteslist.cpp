@@ -22,9 +22,9 @@ NotesList::NotesList(QWidget *parent) : QWidget(parent)
     QVBoxLayout *notesContainerLayout = new QVBoxLayout(notesContainer);
     notesContainerLayout->setMargin(0);
 
-
     // Notes area
     scrollArea = new QScrollArea();
+    scrollArea->setWidgetResizable(true);
     scrollArea->setWidget(notesContainer);
 
 
