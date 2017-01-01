@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
+#include "noteslist.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,12 +19,9 @@ public:
 
 public slots:
     void addList();
-    void addNote(QWidget *scrollArea);
-    void showListActions();
 
 private:
     Ui::MainWindow *ui;
-    QToolButton *listActionsButton;
 };
 
 #endif // MAINWINDOW_H
