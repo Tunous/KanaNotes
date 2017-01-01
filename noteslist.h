@@ -13,13 +13,14 @@ signals:
 
 public slots:
     void showActions();
-    void addNote(QWidget *scrollArea);
+    void addNote();
 
 private:
     QWidget *titleRow;
     QLineEdit *nameInput;
     QToolButton *actionsButton;
 
+    QWidget *notesContainer;
     QScrollArea *scrollArea;
 
     QPushButton *addNoteButton;

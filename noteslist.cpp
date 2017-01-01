@@ -18,7 +18,7 @@ NotesList::NotesList(QWidget *parent) : QWidget(parent)
 
 
     // Notes container
-    QWidget *notesContainer = new QWidget();
+    notesContainer = new QWidget();
     QVBoxLayout *notesContainerLayout = new QVBoxLayout(notesContainer);
     notesContainerLayout->setMargin(0);
 
@@ -44,12 +44,7 @@ NotesList::NotesList(QWidget *parent) : QWidget(parent)
     setMaximumWidth(250);
 
     // Connect signals
-    QSignalMapper *signalMapper = new QSignalMapper(this);
-    connect(addNoteButton, SIGNAL(clicked()), signalMapper, SLOT(map()));
-
-    signalMapper->setMapping(addNoteButton, notesContainer);
-
-    connect(signalMapper, SIGNAL(mapped(QWidget*)), this, SLOT(addNote(QWidget*)));
+    connect(addNoteButton, SIGNAL(clicked()), this, SLOT(addNote()));
 
     actionsButton->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(actionsButton, SIGNAL(clicked()), this, SLOT(showActions()));
@@ -60,15 +55,14 @@ void NotesList::showActions()
     QMenu menu;
 
     QAction *removeListAction = new QAction("Remove");
-    menu.addAction(removeListAction);
-
     connect(removeListAction, SIGNAL(triggered()), this, SLOT(deleteLater()));
+    menu.addAction(removeListAction);
 
     menu.exec(QCursor::pos());
 }
 
-void NotesList::addNote(QWidget *widget)
+void NotesList::addNote()
 {
     qDebug() << "Adding note";
-    widget->layout()->addWidget(new QTextEdit());
+    notesContainer->layout()->addWidget(new QTextEdit());
 }

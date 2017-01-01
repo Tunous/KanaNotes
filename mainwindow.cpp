@@ -16,10 +16,5 @@ MainWindow::~MainWindow()
 void MainWindow::addList()
 {
     NotesList *list = new NotesList();
-
-    QLayout *listContainerLayout = ui->listContainer->layout();
-    QLayoutItem *lastItem = listContainerLayout->takeAt(listContainerLayout->count() - 1);
-
-    listContainerLayout->addWidget(list);
-    listContainerLayout->addItem(lastItem);
+    ui->listContainer->layout()->addWidget(list);
 }
