@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtWidgets>
 #include "notelist.h"
+#include "list.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,9 +20,11 @@ public:
 
 public slots:
     void addList();
+    void addList(List &listt);
 
 private:
     Ui::MainWindow *ui;
+    QList<List> lists;
 };
 
 #endif // MAINWINDOW_H

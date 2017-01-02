@@ -6,6 +6,8 @@
 #include <QDebug>
 #include <QTextEdit>
 
+#include "list.h"
+
 namespace Ui {
 class NoteList;
 }
@@ -17,6 +19,9 @@ class NoteList : public QWidget
 public:
     explicit NoteList(QWidget *parent = 0);
     ~NoteList();
+
+    List *list;
+    void setList(List *list);
 
 public slots:
     void addNote();

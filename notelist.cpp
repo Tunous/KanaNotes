@@ -15,6 +15,16 @@ NoteList::~NoteList()
     delete ui;
 }
 
+void NoteList::setList(List *list) {
+    this->list = list;
+    ui->nameInput->setText(list->getName());
+
+    foreach (Note note, list->getNotes()) {
+        QTextEdit *noteInput = new QTextEdit(note.getTitle());
+        ui->noteContainer->layout()->addWidget(noteInput);
+    }
+}
+
 void NoteList::showActions()
 {
     QMenu menu;
