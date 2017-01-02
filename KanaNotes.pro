@@ -25,9 +25,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    noteslist.cpp
+    notelist.cpp
 
 HEADERS  += mainwindow.h \
-    noteslist.h
+    notelist.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    notelist.ui

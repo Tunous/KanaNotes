@@ -15,6 +15,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::addList()
 {
-    NotesList *list = new NotesList();
+    NoteList *list = new NoteList();
     ui->listContainer->layout()->addWidget(list);
 }

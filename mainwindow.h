@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-#include "noteslist.h"
+#include "notelist.h"
 
 namespace Ui {
 class MainWindow;
