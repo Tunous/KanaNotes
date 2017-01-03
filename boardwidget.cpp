@@ -56,9 +56,9 @@ void BoardWidget::save()
     saveAs(savedFilename);
 }
 
-void BoardWidget::saveAs(QString filename)
+void BoardWidget::saveAs(QString fileName)
 {
-    QFile file(filename);
+    QFile file(fileName);
     if (!file.open(QFile::WriteOnly | QFile::Text)) {
         qDebug() << "Could not open file for writing";
         return;

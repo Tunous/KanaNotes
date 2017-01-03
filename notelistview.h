@@ -29,7 +29,7 @@ private slots:
 private:
     Ui::NoteListView *ui;
 
-    void addNote();
+    void createNote();
 };
 
 #endif // NOTELISTVIEW_H

@@ -21,6 +21,25 @@ public:
     ~MainWindow();
 
 private slots:
+    void on_tabWidget_tabCloseRequested(int index);
+    void on_actionOpenBoard_triggered();
+
+    void on_actionNewBoard_triggered();
+
+    void on_actionSave_triggered();
+
+    void on_actionSaveAs_triggered();
+
+    void on_actionCloseBoard_triggered();
+
+    void on_actionCloseAllBoards_triggered();
+
+    void on_actionExit_triggered();
+
+private:
+    Ui::MainWindow *ui;
+
+    void closeBoard(int index);
     void closeAllBoards();
     void closeSelectedBoard();
     void createBoard();
@@ -28,10 +47,10 @@ private slots:
     void saveBoard();
     void saveBoardAs();
 
-private:
-    Ui::MainWindow *ui;
+    void setBoardActionsEnabled(bool enabled);
+    void addBoard(QString fileName);
 
-    void closeBoard(int index);
+    BoardWidget* getBoard(int index);
 };
 
 #endif // MAINWINDOW_H

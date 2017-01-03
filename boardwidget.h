@@ -21,7 +21,7 @@ public:
 
     void addList(NoteList *list);
 
-    void saveAs(QString filename);
+    void saveAs(QString fileName);
     void save();
 
     bool hasUnsavedChanges();

@@ -25,7 +25,7 @@ NoteListView::~NoteListView()
     delete ui;
 }
 
-void NoteListView::addNote()
+void NoteListView::createNote()
 {
     ui->noteContainer->layout()->addWidget(new QTextEdit());
 }
@@ -37,5 +37,5 @@ void NoteListView::on_actionsButton_triggered(QAction *action)
 
 void NoteListView::on_actionsButton_clicked()
 {
-    addNote();
+    createNote();
 }

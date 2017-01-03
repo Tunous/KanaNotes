@@ -105,9 +105,4 @@
  </widget>
  <resources/>
  <connections/>
- <slots>
-  <slot>addNote()</slot>
-  <slot>showActions()</slot>
-  <slot>handleAction(QAction*)</slot>
- </slots>
 </ui>
