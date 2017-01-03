@@ -87,6 +87,32 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::saveFileAs() {
+    QString filters("Text files (*.txt)");
+    QString fileName = QFileDialog::getSaveFileName(this, "Zapisz jako...", QDir::currentPath(), filters);
+
+    QFile file(fileName);
+    if (!file.open(QFile::WriteOnly | QFile::Text)) {
+        qDebug() << "Could not open file for writing";
+        return;
+    }
+
+    QTextStream out(&file);
+    foreach (NoteList list, lists) {
+        out << "#LIST# " << list.getName().trimmed() << '\n';
+
+        foreach (Note note, list.getNotes()) {
+            out << "\n#NOTE# " << note.getTitle().trimmed() << '\n';
+            out << note.getDescription() << '\n';
+            out << "#ENDNOTE#\n";
+        }
+
+        out << "\n#ENDLIST#\n\n";
+    }
+    file.flush();
+    file.close();
+}
+
 void MainWindow::addList(NoteList &listt) {
     NoteListView *list = new NoteListView();
     list->setList(&listt);

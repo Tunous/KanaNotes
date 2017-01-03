@@ -21,6 +21,7 @@ public:
 public slots:
     void addList();
     void addList(NoteList &listt);
+    void saveFileAs();
 
 private:
     Ui::MainWindow *ui;
