@@ -3,7 +3,8 @@
 
 BoardWidget::BoardWidget(QString filename, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::BoardWidget)
+    ui(new Ui::BoardWidget),
+    unsavedChanges(false)
 {
     ui->setupUi(this);
 
@@ -13,6 +14,11 @@ BoardWidget::BoardWidget(QString filename, QWidget *parent) :
 BoardWidget::~BoardWidget()
 {
     delete ui;
+}
+
+bool BoardWidget::hasUnsavedChanges()
+{
+    return unsavedChanges;
 }
 
 void BoardWidget::loadFromFile(QString filename)

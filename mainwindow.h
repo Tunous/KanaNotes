@@ -20,11 +20,18 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-public slots:
+private slots:
+    void closeAllBoards();
+    void closeSelectedBoard();
+    void createBoard();
     void openBoard();
+    void saveBoard();
+    void saveBoardAs();
 
 private:
     Ui::MainWindow *ui;
+
+    void closeBoard(int index);
 };
 
 #endif // MAINWINDOW_H

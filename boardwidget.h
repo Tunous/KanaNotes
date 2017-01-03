@@ -24,6 +24,8 @@ public:
     void saveAs(QString filename);
     void save();
 
+    bool hasUnsavedChanges();
+
 private slots:
     void on_addListButton_clicked();
 
@@ -31,6 +33,8 @@ private:
     Ui::BoardWidget *ui;
     QList<NoteList> lists;
     QString savedFilename;
+
+    bool unsavedChanges;
 
     void addEmptyList();
 
