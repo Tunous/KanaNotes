@@ -3,7 +3,9 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
+
 #include "notelistview.h"
+#include "boardwidget.h"
 #include "notelist.h"
 
 namespace Ui {
@@ -19,13 +21,10 @@ public:
     ~MainWindow();
 
 public slots:
-    void addList();
-    void addList(NoteList &listt);
-    void saveFileAs();
+    void openBoard();
 
 private:
     Ui::MainWindow *ui;
-    QList<NoteList> lists;
 };
 
 #endif // MAINWINDOW_H

@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>-1</number>
       </property>
       <property name="tabsClosable">
        <bool>true</bool>
@@ -26,69 +26,6 @@
       <property name="movable">
        <bool>true</bool>
       </property>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="title">
-        <string>Tab &amp;1</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QScrollArea" name="scrollArea">
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
-          </property>
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="listContainer">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>518</width>
-             <height>289</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <property name="sizeConstraint">
-             <enum>QLayout::SetMaximumSize</enum>
-            </property>
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-           </layout>
-          </widget>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="addListButton">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Add a list...</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
      </widget>
     </item>
    </layout>
@@ -203,26 +140,10 @@
  <resources/>
  <connections>
   <connection>
-   <sender>actionExit</sender>
+   <sender>actionOpenBoard</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>278</x>
-     <y>191</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionSaveAs</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>saveFileAs()</slot>
+   <slot>openBoard()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -234,25 +155,8 @@
     </hint>
    </hints>
   </connection>
-  <connection>
-   <sender>addListButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>addList()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>288</x>
-     <y>413</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>441</x>
-     <y>34</y>
-    </hint>
-   </hints>
-  </connection>
  </connections>
  <slots>
-  <slot>addList()</slot>
-  <slot>saveFileAs()</slot>
+  <slot>openBoard()</slot>
  </slots>
 </ui>
