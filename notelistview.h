@@ -1,34 +1,34 @@
-#ifndef NOTELIST_H
-#define NOTELIST_H
+#ifndef NOTELISTVIEW_H
+#define NOTELISTVIEW_H
 
 #include <QWidget>
 #include <QMenu>
 #include <QDebug>
 #include <QTextEdit>
 
-#include "list.h"
+#include "notelist.h"
 
 namespace Ui {
-class NoteList;
+class NoteListView;
 }
 
-class NoteList : public QWidget
+class NoteListView : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit NoteList(QWidget *parent = 0);
-    ~NoteList();
+    explicit NoteListView(QWidget *parent = 0);
+    ~NoteListView();
 
-    List *list;
-    void setList(List *list);
+    NoteList *list;
+    void setList(NoteList *list);
 
 public slots:
     void addNote();
     void showActions();
 
 private:
-    Ui::NoteList *ui;
+    Ui::NoteListView *ui;
 };
 
-#endif // NOTELIST_H
+#endif // NOTELISTVIEW_H

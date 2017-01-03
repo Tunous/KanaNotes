@@ -1,5 +1,5 @@
-#include "notelist.h"
-#include "ui_notelist.h"
+#include "notelistview.h"
+#include "ui_notelistview.h"
 
 NoteListView::NoteListView(QWidget *parent) :
     QWidget(parent),
@@ -15,7 +15,7 @@ NoteListView::~NoteListView()
     delete ui;
 }
 
-void NoteListView::setList(List *list) {
+void NoteListView::setList(NoteList *list) {
     this->list = list;
     ui->nameInput->setText(list->getName());
 

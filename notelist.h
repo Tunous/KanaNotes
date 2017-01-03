@@ -1,5 +1,5 @@
-#ifndef LIST_H
-#define LIST_H
+#ifndef NOTELIST_H
+#define NOTELIST_H
 
 #include <QList>
 #include "note.h"
@@ -21,4 +21,4 @@ private:
     QList<Note> notes;
 };
 
-#endif // LIST_H
+#endif // NOTELIST_H

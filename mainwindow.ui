@@ -170,9 +170,6 @@
    </property>
   </action>
   <action name="actionSaveAs">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
    <property name="icon">
     <iconset theme="filesaveas">
      <normaloff>.</normaloff>.</iconset>
@@ -192,8 +189,8 @@
    <slot>addList()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>282</x>
-     <y>208</y>
+     <x>288</x>
+     <y>413</y>
     </hint>
     <hint type="destinationlabel">
      <x>441</x>

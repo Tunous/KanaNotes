@@ -1,20 +1,20 @@
 #include "notelist.h"
 
-List::List(QString name) : name(name) {
+NoteList::NoteList(QString name) : name(name) {
 }
 
-void List::addNote(const Note &note) {
+void NoteList::addNote(const Note &note) {
     notes.append(note);
 }
 
-QString List::getName() {
+QString NoteList::getName() {
     return name;
 }
 
-void List::setName(QString name) {
+void NoteList::setName(QString name) {
     this->name = name;
 }
 
-const QList<Note> List::getNotes() {
+const QList<Note> NoteList::getNotes() {
     return notes;
 }
