@@ -15,7 +15,7 @@ NoteListView::NoteListView(NoteList *list, QWidget *parent) :
     }
 
     QMenu *menu = new QMenu();
-    menu->addAction("Remove list");
+    menu->addAction(ui->actionRemoveList);
 
     ui->actionsButton->setMenu(menu);
 }
@@ -30,12 +30,12 @@ void NoteListView::createNote()
     ui->noteContainer->layout()->addWidget(new QTextEdit());
 }
 
-void NoteListView::on_actionsButton_triggered(QAction *action)
-{
-    qDebug() << "Selected action: " << action->text();
-}
-
 void NoteListView::on_actionsButton_clicked()
 {
     createNote();
+}
+
+void NoteListView::on_actionRemoveList_triggered()
+{
+    close();
 }

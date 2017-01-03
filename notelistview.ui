@@ -102,6 +102,17 @@
     </widget>
    </item>
   </layout>
+  <action name="actionRemoveList">
+   <property name="icon">
+    <iconset theme="remove"/>
+   </property>
+   <property name="text">
+    <string>Remove List</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove List</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -23,8 +23,8 @@ public:
     NoteList *list;
 
 private slots:
-    void on_actionsButton_triggered(QAction *action);
     void on_actionsButton_clicked();
+    void on_actionRemoveList_triggered();
 
 private:
     Ui::NoteListView *ui;
