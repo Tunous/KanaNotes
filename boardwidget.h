@@ -19,16 +19,20 @@ public:
     explicit BoardWidget(QString filename, QWidget *parent = 0);
     ~BoardWidget();
 
-    void addEmptyList();
     void addList(NoteList *list);
 
     void saveAs(QString filename);
     void save();
 
+private slots:
+    void on_addListButton_clicked();
+
 private:
     Ui::BoardWidget *ui;
     QList<NoteList> lists;
     QString savedFilename;
+
+    void addEmptyList();
 
     void loadFromFile(QString filename);
 

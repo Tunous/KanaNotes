@@ -22,12 +22,14 @@ public:
 
     NoteList *list;
 
-public slots:
-    void addNote();
-    void showActions();
+private slots:
+    void on_actionsButton_triggered(QAction *action);
+    void on_actionsButton_clicked();
 
 private:
     Ui::NoteListView *ui;
+
+    void addNote();
 };
 
 #endif // NOTELISTVIEW_H

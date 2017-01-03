@@ -133,3 +133,8 @@ Note BoardWidget::parseNote(QTextStream &stream, QString &noteTitle)
 
     return Note(noteTitle, noteDescription);
 }
+
+void BoardWidget::on_addListButton_clicked()
+{
+    addEmptyList();
+}

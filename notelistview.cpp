@@ -7,13 +7,17 @@ NoteListView::NoteListView(NoteList *list, QWidget *parent) :
     ui(new Ui::NoteListView)
 {
     ui->setupUi(this);
-    ui->actionsButton->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->nameInput->setText(list->getName());
 
     foreach (Note note, list->getNotes()) {
         QTextEdit *noteInput = new QTextEdit(note.getTitle());
         ui->noteContainer->layout()->addWidget(noteInput);
     }
+
+    QMenu *menu = new QMenu();
+    menu->addAction("Remove list");
+
+    ui->actionsButton->setMenu(menu);
 }
 
 NoteListView::~NoteListView()
@@ -21,19 +25,17 @@ NoteListView::~NoteListView()
     delete ui;
 }
 
-void NoteListView::showActions()
-{
-    QMenu menu;
-
-    QAction *removeListAction = new QAction("Remove");
-    connect(removeListAction, SIGNAL(triggered()), this, SLOT(deleteLater()));
-    menu.addAction(removeListAction);
-
-    menu.exec(QCursor::pos());
-}
-
 void NoteListView::addNote()
 {
-    qDebug() << "Adding note";
     ui->noteContainer->layout()->addWidget(new QTextEdit());
+}
+
+void NoteListView::on_actionsButton_triggered(QAction *action)
+{
+    qDebug() << "Selected action: " << action->text();
+}
+
+void NoteListView::on_actionsButton_clicked()
+{
+    addNote();
 }

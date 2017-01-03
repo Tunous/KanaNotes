@@ -45,8 +45,26 @@
      </item>
      <item>
       <widget class="QToolButton" name="actionsButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>...</string>
+       </property>
+       <property name="icon">
+        <iconset theme="add"/>
+       </property>
+       <property name="popupMode">
+        <enum>QToolButton::MenuButtonPopup</enum>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonIconOnly</enum>
+       </property>
+       <property name="autoRaise">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -63,7 +81,7 @@
         <x>0</x>
         <y>0</y>
         <width>246</width>
-        <height>212</height>
+        <height>255</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -83,52 +101,13 @@
      </widget>
     </widget>
    </item>
-   <item>
-    <widget class="QPushButton" name="addNoteButton">
-     <property name="text">
-      <string>Add a note...</string>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>addNoteButton</sender>
-   <signal>clicked()</signal>
-   <receiver>NoteList</receiver>
-   <slot>addNote()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>124</x>
-     <y>282</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>124</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>actionsButton</sender>
-   <signal>clicked()</signal>
-   <receiver>NoteList</receiver>
-   <slot>showActions()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>230</x>
-     <y>18</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>124</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>addNote()</slot>
   <slot>showActions()</slot>
+  <slot>handleAction(QAction*)</slot>
  </slots>
 </ui>

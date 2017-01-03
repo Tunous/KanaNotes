@@ -73,5 +73,25 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>addListButton</sender>
+   <signal>clicked()</signal>
+   <receiver>BoardWidget</receiver>
+   <slot>addEmptyList()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>276</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>addEmptyList()</slot>
+ </slots>
 </ui>
