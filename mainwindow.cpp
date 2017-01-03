@@ -21,9 +21,9 @@ Note parseNote(QTextStream &stream, QString &noteTitle)
     return Note(noteTitle, noteDescription);
 }
 
-List parseList(QTextStream &stream, QString &listName)
+NoteList parseList(QTextStream &stream, QString &listName)
 {
-    List list(listName);
+    NoteList list(listName);
 
     while (!stream.atEnd()) {
         QString line = stream.readLine();
@@ -43,9 +43,9 @@ List parseList(QTextStream &stream, QString &listName)
     return list;
 }
 
-QList<List> parseFile(QTextStream &stream)
+QList<NoteList> parseFile(QTextStream &stream)
 {
-    QList<List> lists;
+    QList<NoteList> lists;
 
     while (!stream.atEnd()) {
         QString line = stream.readLine();
@@ -53,7 +53,7 @@ QList<List> parseFile(QTextStream &stream)
         if (line.startsWith("#LIST#")) {
             QString listName = line.mid(6).trimmed();
 
-            List list = parseList(stream, listName);
+            NoteList list = parseList(stream, listName);
             lists.append(list);
         }
     }
@@ -77,7 +77,7 @@ MainWindow::MainWindow(QWidget *parent) :
         file.close();
     }
 
-    foreach (List list, lists) {
+    foreach (NoteList list, lists) {
         addList(list);
     }
 }
@@ -87,14 +87,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::addList(List &listt) {
-    NoteList *list = new NoteList();
+void MainWindow::addList(NoteList &listt) {
+    NoteListView *list = new NoteListView();
     list->setList(&listt);
     ui->listContainer->layout()->addWidget(list);
 }
 
 void MainWindow::addList()
 {
-    NoteList *list = new NoteList();
+    NoteListView *list = new NoteListView();
     ui->listContainer->layout()->addWidget(list);
 }
