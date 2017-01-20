@@ -1,24 +1,32 @@
 #include "note.h"
+#include "ui_note.h"
 
-Note::Note(QString title, QString description)
-    : title(title), description(description) {
+Note::Note(QString text, QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::Note)
+{
+    ui->setupUi(this);
+    ui->lineEdit->setText(text);
+
+    edited = false;
 }
 
-Note::Note(QString title) : Note(title, "") {
+Note::~Note()
+{
+    delete ui;
 }
 
-QString Note::getTitle() {
-    return title;
+bool Note::hasUnsavedChanges()
+{
+    return edited;
 }
 
-QString Note::getDescription() {
-    return description;
+void Note::on_lineEdit_textChanged(const QString &arg1)
+{
+    edited = true;
 }
 
-void Note::setTitle(QString title) {
-    this->title = title;
-}
-
-void Note::setDescription(QString description) {
-    this->description = description;
+QString Note::getText() const
+{
+    return ui->lineEdit->text();
 }

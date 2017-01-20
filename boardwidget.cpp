@@ -3,8 +3,7 @@
 
 BoardWidget::BoardWidget(QString filename, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::BoardWidget),
-    unsavedChanges(false)
+    ui(new Ui::BoardWidget)
 {
     ui->setupUi(this);
 
@@ -18,11 +17,20 @@ BoardWidget::~BoardWidget()
 
 bool BoardWidget::hasUnsavedChanges()
 {
-    return unsavedChanges;
+    for (int i = 0; i < ui->listContainer->layout()->count(); i++) {
+        NoteListView *list = dynamic_cast<NoteListView*>(ui->listContainer->layout()->itemAt(i));
+        if (list != NULL && list->hasUnsavedChanges()) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 void BoardWidget::loadFromFile(QString filename)
 {
+    savedFilename = filename;
+
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
         qDebug() << "Error loading board from file";
@@ -30,25 +38,18 @@ void BoardWidget::loadFromFile(QString filename)
     }
 
     QTextStream in(&file);
-    lists = parseFile(in);
+    parseFile(in);
     file.close();
-
-    foreach (NoteList list, lists) {
-        addList(&list);
-    }
-
-    savedFilename = filename;
 }
 
-void BoardWidget::addList(NoteList *list)
+void BoardWidget::addList(NoteListView *list)
 {
-    NoteListView *listView = new NoteListView(list);
-    ui->listContainer->layout()->addWidget(listView);
+    ui->listContainer->layout()->addWidget(list);
 }
 
 void BoardWidget::addEmptyList()
 {
-    addList(new NoteList(""));
+    addList(new NoteListView(""));
 }
 
 void BoardWidget::save()
@@ -65,79 +66,52 @@ void BoardWidget::saveAs(QString fileName)
     }
 
     QTextStream out(&file);
-    foreach (NoteList list, lists) {
-        out << "#LIST# " << list.getName().trimmed() << '\n';
 
-        foreach (Note note, list.getNotes()) {
-            out << "\n#NOTE# " << note.getTitle().trimmed() << '\n';
-            out << note.getDescription() << '\n';
-            out << "#ENDNOTE#\n";
+    QLayout *layout = ui->listContainer->layout();
+    for (int i = 0; i < layout->count(); i++) {
+        QWidget *widget = layout->itemAt(i)->widget();
+        NoteListView *list = dynamic_cast<NoteListView*>(widget);
+
+        if (list != NULL) {
+            out << "# " << list->getName() << endl;
+
+            foreach (QString note, list->getNotes()) {
+                out << "- " << note << endl;
+            }
+
+            out << endl;
         }
-
-        out << "\n#ENDLIST#\n\n";
     }
     file.flush();
     file.close();
 }
 
-QList<NoteList> BoardWidget::parseFile(QTextStream &stream)
+void BoardWidget::parseFile(QTextStream &stream)
 {
-    QList<NoteList> lists;
+    QString line;
+    QString listName = "";
+    QList<QString> *notes = new QList<QString>;
 
     while (!stream.atEnd()) {
-        QString line = stream.readLine();
+        line = stream.readLine();
 
-        if (line.startsWith("#LIST#")) {
-            QString listName = line.mid(6).trimmed();
+        if (line.startsWith("#")) {
+            if (listName != "") {
+                addList(new NoteListView(listName, notes));
+                notes = new QList<QString>();
+            }
 
-            NoteList list = parseList(stream, listName);
-            lists.append(list);
+            listName = line.mid(1).trimmed();
+        }
+
+        if (line.startsWith("-")) {
+            notes->append(line.mid(1).trimmed());
         }
     }
 
-    return lists;
-}
-
-NoteList BoardWidget::parseList(QTextStream &stream, QString &listName)
-{
-    NoteList list(listName);
-
-    while (!stream.atEnd()) {
-        QString line = stream.readLine();
-
-        if (line.startsWith("#ENDLIST#")) {
-            break;
-        }
-
-        if (line.startsWith("#NOTE#")) {
-            QString noteTitle = line.mid(6).trimmed();
-
-            Note note = parseNote(stream, noteTitle);
-            list.addNote(note);
-        }
+    if (listName != "") {
+        addList(new NoteListView(listName, notes));
     }
-
-    return list;
-}
-
-Note BoardWidget::parseNote(QTextStream &stream, QString &noteTitle)
-{
-    QString noteDescription = "";
-
-    while (!stream.atEnd()) {
-        QString line = stream.readLine();
-
-        if (line.startsWith("#ENDNOTE#")) {
-            break;
-        }
-
-        noteDescription.append(line);
-        noteDescription.append('\n');
-    }
-
-    noteDescription = noteDescription.trimmed();
-
-    return Note(noteTitle, noteDescription);
 }
 
 void BoardWidget::on_addListButton_clicked()

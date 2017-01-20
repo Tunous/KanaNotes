@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QFile>
 
-#include "notelist.h"
 #include "notelistview.h"
 
 namespace Ui {
@@ -19,7 +18,7 @@ public:
     explicit BoardWidget(QString filename, QWidget *parent = 0);
     ~BoardWidget();
 
-    void addList(NoteList *list);
+    void addList(NoteListView *list);
 
     void saveAs(QString fileName);
     void save();
@@ -31,18 +30,13 @@ private slots:
 
 private:
     Ui::BoardWidget *ui;
-    QList<NoteList> lists;
     QString savedFilename;
-
-    bool unsavedChanges;
 
     void addEmptyList();
 
     void loadFromFile(QString filename);
 
-    QList<NoteList> parseFile(QTextStream &stream);
-    NoteList parseList(QTextStream &stream, QString &listName);
-    Note parseNote(QTextStream &stream, QString &noteTitle);
+    void parseFile(QTextStream &stream);
 };
 
 #endif // BOARDWIDGET_H

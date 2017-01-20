@@ -6,7 +6,6 @@
 
 #include "notelistview.h"
 #include "boardwidget.h"
-#include "notelist.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,17 +22,11 @@ public:
 private slots:
     void on_tabWidget_tabCloseRequested(int index);
     void on_actionOpenBoard_triggered();
-
     void on_actionNewBoard_triggered();
-
     void on_actionSave_triggered();
-
     void on_actionSaveAs_triggered();
-
     void on_actionCloseBoard_triggered();
-
     void on_actionCloseAllBoards_triggered();
-
     void on_actionExit_triggered();
 
 private:

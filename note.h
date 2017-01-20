@@ -1,22 +1,29 @@
 #ifndef NOTE_H
 #define NOTE_H
 
-#include <QString>
+#include <QWidget>
 
-class Note
+namespace Ui {
+class Note;
+}
+
+class Note : public QWidget
 {
-public:
-    Note(QString title, QString description);
-    Note(QString title);
+    Q_OBJECT
 
-    QString getTitle();
-    QString getDescription();
-    void setTitle(QString title);
-    void setDescription(QString description);
+public:
+    explicit Note(QString text = "", QWidget *parent = 0);
+    ~Note();
+
+    bool hasUnsavedChanges();
+    QString getText() const;
+
+private slots:
+    void on_lineEdit_textChanged(const QString &arg1);
 
 private:
-    QString title;
-    QString description;
+    Ui::Note *ui;
+    bool edited;
 };
 
 #endif // NOTE_H

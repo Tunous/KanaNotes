@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QTextEdit>
 
-#include "notelist.h"
+#include "note.h"
 
 namespace Ui {
 class NoteListView;
@@ -17,10 +17,12 @@ class NoteListView : public QWidget
     Q_OBJECT
 
 public:
-    explicit NoteListView(NoteList *list, QWidget *parent = 0);
+    explicit NoteListView(QString name, QList<QString> *notes = NULL, QWidget *parent = 0);
     ~NoteListView();
 
-    NoteList *list;
+    bool hasUnsavedChanges();
+    QString getName();
+    QList<QString> getNotes();
 
 private slots:
     void on_actionsButton_clicked();
@@ -28,8 +30,10 @@ private slots:
 
 private:
     Ui::NoteListView *ui;
+    bool edited;
 
     void createNote();
+    Note* getNote(int index) const;
 };
 
 #endif // NOTELISTVIEW_H

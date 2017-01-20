@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>566</width>
+    <height>382</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,8 +27,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>388</width>
-        <height>247</height>
+        <width>554</width>
+        <height>329</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -73,25 +73,5 @@
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>addListButton</sender>
-   <signal>clicked()</signal>
-   <receiver>BoardWidget</receiver>
-   <slot>addEmptyList()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>199</x>
-     <y>276</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>199</x>
-     <y>149</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
- <slots>
-  <slot>addEmptyList()</slot>
- </slots>
+ <connections/>
 </ui>

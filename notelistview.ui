@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>250</width>
-    <height>300</height>
+    <height>352</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -55,7 +55,8 @@
         <string>...</string>
        </property>
        <property name="icon">
-        <iconset theme="add"/>
+        <iconset theme="add">
+         <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="popupMode">
         <enum>QToolButton::MenuButtonPopup</enum>
@@ -81,7 +82,7 @@
         <x>0</x>
         <y>0</y>
         <width>246</width>
-        <height>255</height>
+        <height>307</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -104,7 +105,8 @@
   </layout>
   <action name="actionRemoveList">
    <property name="icon">
-    <iconset theme="remove"/>
+    <iconset theme="remove">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Remove List</string>
