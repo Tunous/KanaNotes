@@ -7,7 +7,7 @@ Note::Note(QString text, QWidget *parent) :
     ui(new Ui::Note)
 {
     ui->setupUi(this);
-    ui->lineEdit->setText(text);
+    ui->textLabel->setText(text);
 
     edited = false;
 }
@@ -22,14 +22,9 @@ bool Note::hasUnsavedChanges()
     return edited;
 }
 
-void Note::on_lineEdit_textChanged(const QString &arg1)
-{
-    edited = true;
-}
-
 QString Note::getText() const
 {
-    return ui->lineEdit->text();
+    return ui->textLabel->text();
 }
 
 void Note::saved()

@@ -52,10 +52,10 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>...</string>
+        <string>Remove list</string>
        </property>
        <property name="icon">
-        <iconset theme="add">
+        <iconset theme="remove">
          <normaloff>.</normaloff>.</iconset>
        </property>
        <property name="popupMode">
@@ -82,7 +82,7 @@
         <x>0</x>
         <y>0</y>
         <width>246</width>
-        <height>307</height>
+        <height>266</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -101,6 +101,23 @@
       </layout>
      </widget>
     </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLineEdit" name="newNoteInput"/>
+     </item>
+     <item>
+      <widget class="QToolButton" name="addNoteButton">
+       <property name="text">
+        <string>Add note</string>
+       </property>
+       <property name="icon">
+        <iconset theme="add"/>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
   <action name="actionRemoveList">

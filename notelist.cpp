@@ -29,11 +29,6 @@ NoteList::~NoteList()
     delete ui;
 }
 
-void NoteList::removeNote(Note *note)
-{
-    ui->noteContainer->layout()->removeWidget(note);
-}
-
 void NoteList::saved()
 {
     edited = false;
@@ -48,18 +43,19 @@ void NoteList::saved()
 
 void NoteList::addNote(Note *note)
 {
-    connect(note, SIGNAL(removeRequested(Note*)), this, SLOT(on_note_removeRequested(Note*)));
+    connect(note, SIGNAL(removeRequested(Note*)), this, SLOT(removeNote(Note*)));
     ui->noteContainer->layout()->addWidget(note);
 }
 
 void NoteList::on_actionsButton_clicked()
 {
-    addNote(new Note());
+    emit removeRequested(this);
+    //addNote(new Note());
 }
 
 void NoteList::on_actionRemoveList_triggered()
 {
-    close();
+    emit removeRequested(this);
 }
 
 bool NoteList::hasUnsavedChanges()
@@ -108,9 +104,15 @@ void NoteList::on_nameInput_textChanged(const QString &arg1)
     edited = true;
 }
 
-void NoteList::on_note_removeRequested(Note *note)
+void NoteList::removeNote(Note *note)
 {
     ui->noteContainer->layout()->removeWidget(note);
     note->disconnect();
     delete note;
+}
+
+void NoteList::on_addNoteButton_clicked()
+{
+    addNote(new Note(ui->newNoteInput->text()));
+    ui->newNoteInput->clear();
 }

@@ -29,10 +29,12 @@ public:
 
 private slots:
     void on_addListButton_clicked();
+    void removeList(NoteList *list);
 
 private:
     Ui::Board *ui;
     QString savedFileName;
+    bool edited;
 
     void addEmptyList();
 

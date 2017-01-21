@@ -3,7 +3,8 @@
 
 Board::Board(QString fileName, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Board)
+    ui(new Ui::Board),
+    edited(false)
 {
     ui->setupUi(this);
 
@@ -17,6 +18,10 @@ Board::~Board()
 
 bool Board::hasUnsavedChanges()
 {
+    if (edited) {
+        return true;
+    }
+
     QLayout *layout = ui->listContainer->layout();
     for (int i = 0; i < layout->count(); i++) {
         NoteList *list = getList(i);
@@ -51,7 +56,19 @@ void Board::loadFromFile(QString fileName)
 
 void Board::addList(NoteList *list)
 {
+    connect(list, SIGNAL(removeRequested(NoteList*)), this, SLOT(removeList(NoteList*)));
     ui->listContainer->layout()->addWidget(list);
+
+    edited = true;
+}
+
+void Board::removeList(NoteList *list)
+{
+    ui->listContainer->layout()->removeWidget(list);
+    list->disconnect();
+    delete list;
+
+    edited = true;
 }
 
 void Board::addEmptyList()
@@ -92,6 +109,8 @@ void Board::saveAs(QString fileName)
     }
     file.flush();
     file.close();
+
+    edited = false;
 }
 
 void Board::parseFile(QTextStream &stream)

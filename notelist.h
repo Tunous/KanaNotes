@@ -25,14 +25,17 @@ public:
     QList<QString> getNotes();
     void saved();
 
-    void removeNote(Note *note);
+signals:
+    void removeRequested(NoteList *list);
 
 private slots:
     void on_actionsButton_clicked();
     void on_actionRemoveList_triggered();
 
     void on_nameInput_textChanged(const QString &arg1);
-    void on_note_removeRequested(Note *note);
+    void removeNote(Note *note);
+
+    void on_addNoteButton_clicked();
 
 private:
     Ui::NoteList *ui;
