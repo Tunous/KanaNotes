@@ -12,7 +12,7 @@ NoteList::NoteList(QString name, QList<QString> *notes, QWidget *parent) :
     if (notes != NULL) {
         for (int i = 0; i < notes->count(); i++) {
             Note *note = new Note(notes->at(i));
-            ui->noteContainer->layout()->addWidget(note);
+            addNote(note);
         }
     }
 
@@ -29,6 +29,11 @@ NoteList::~NoteList()
     delete ui;
 }
 
+void NoteList::removeNote(Note *note)
+{
+    ui->noteContainer->layout()->removeWidget(note);
+}
+
 void NoteList::saved()
 {
     edited = false;
@@ -41,14 +46,15 @@ void NoteList::saved()
     }
 }
 
-void NoteList::createNote()
+void NoteList::addNote(Note *note)
 {
-    ui->noteContainer->layout()->addWidget(new Note());
+    connect(note, SIGNAL(removeRequested(Note*)), this, SLOT(on_note_removeRequested(Note*)));
+    ui->noteContainer->layout()->addWidget(note);
 }
 
 void NoteList::on_actionsButton_clicked()
 {
-    createNote();
+    addNote(new Note());
 }
 
 void NoteList::on_actionRemoveList_triggered()
@@ -89,7 +95,9 @@ QList<QString> NoteList::getNotes()
 
     for (int i = 0; i < ui->noteContainer->layout()->count(); i++) {
         Note *note = getNote(i);
-        notes.append(note->getText());
+        if (note != NULL) {
+            notes.append(note->getText());
+        }
     }
 
     return notes;
@@ -98,4 +106,11 @@ QList<QString> NoteList::getNotes()
 void NoteList::on_nameInput_textChanged(const QString &arg1)
 {
     edited = true;
+}
+
+void NoteList::on_note_removeRequested(Note *note)
+{
+    ui->noteContainer->layout()->removeWidget(note);
+    note->disconnect();
+    delete note;
 }

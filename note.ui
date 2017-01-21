@@ -17,6 +17,16 @@
    <item>
     <widget class="QLineEdit" name="lineEdit"/>
    </item>
+   <item>
+    <widget class="QToolButton" name="removeButton">
+     <property name="text">
+      <string>Remove</string>
+     </property>
+     <property name="icon">
+      <iconset theme="remove"/>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>

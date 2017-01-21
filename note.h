@@ -19,8 +19,13 @@ public:
     QString getText() const;
     void saved();
 
+signals:
+    void removeRequested(Note *note);
+
 private slots:
     void on_lineEdit_textChanged(const QString &arg1);
+
+    void on_removeButton_clicked();
 
 private:
     Ui::Note *ui;

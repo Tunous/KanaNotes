@@ -1,5 +1,6 @@
 #include "note.h"
 #include "ui_note.h"
+#include "notelist.h"
 
 Note::Note(QString text, QWidget *parent) :
     QWidget(parent),
@@ -34,4 +35,9 @@ QString Note::getText() const
 void Note::saved()
 {
     edited = false;
+}
+
+void Note::on_removeButton_clicked()
+{
+    emit removeRequested(this);
 }
