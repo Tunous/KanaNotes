@@ -8,6 +8,7 @@ NoteList::NoteList(QString name, QList<QString> *notes, QWidget *parent) :
 {
     ui->setupUi(this);
     ui->nameInput->setText(name);
+    ui->noteContainer->layout()->setAlignment(Qt::AlignTop);
 
     if (notes != NULL) {
         for (int i = 0; i < notes->count(); i++) {
