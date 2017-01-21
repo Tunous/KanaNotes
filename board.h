@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QFile>
+#include <QFileInfo>
 
 #include "notelist.h"
 
@@ -24,13 +25,14 @@ public:
     void save();
 
     bool hasUnsavedChanges();
+    QString getName();
 
 private slots:
     void on_addListButton_clicked();
 
 private:
     Ui::Board *ui;
-    QString savedFilename;
+    QString savedFileName;
 
     void addEmptyList();
 

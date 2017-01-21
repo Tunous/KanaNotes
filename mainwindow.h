@@ -44,6 +44,7 @@ private:
     void addBoard(QString fileName);
 
     Board* getBoard(int index);
+    bool canClose(Board *board);
 };
 
 #endif // MAINWINDOW_H

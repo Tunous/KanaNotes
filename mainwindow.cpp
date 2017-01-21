@@ -40,8 +40,7 @@ void MainWindow::closeBoard(int index)
     }
 
     Board *board = getBoard(index);
-    if (board->hasUnsavedChanges()) {
-        // TODO: Prompt to save
+    if (board == NULL || !canClose(board)) {
         return;
     }
 
@@ -60,16 +59,53 @@ void MainWindow::closeSelectedBoard()
 
 void MainWindow::closeAllBoards()
 {
-    // TODO: Prompt to save
     int tabsCount = ui->tabWidget->count();
+    int removeIndex = 0;
 
-    for (int i = 0; i < tabsCount; ++i) {
-        ui->tabWidget->removeTab(0);
+    for (int i = 0; i < tabsCount; i++) {
+        Board *board = getBoard(removeIndex);
+        if (board == NULL) {
+            removeIndex += 1;
+            continue;
+        }
+
+        if (canClose(board)) {
+            ui->tabWidget->removeTab(removeIndex);
+        } else {
+            return;
+        }
     }
 
     if (ui->tabWidget->count() == 0) {
         setBoardActionsEnabled(false);
     }
+}
+
+bool MainWindow::canClose(Board *board)
+{
+    if (!board->hasUnsavedChanges()) {
+        return true;
+    }
+
+    QMessageBox::StandardButton reply = QMessageBox::question(
+                this,
+                "Niezapisane zmiany",
+                "Masz niezapisane zmiany dla \"" + board->getName() + "\". Zapisać?",
+                QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+
+    switch (reply) {
+    case QMessageBox::Yes:
+        board->save();
+        break;
+
+    case QMessageBox::No:
+        break;
+
+    default:
+        return false;
+    }
+
+    return true;
 }
 
 void MainWindow::saveBoard()
@@ -79,7 +115,7 @@ void MainWindow::saveBoard()
 
 void MainWindow::saveBoardAs()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, "Save Board As...", QDir::currentPath(), "Text files (*.txt)");
+    QString fileName = QFileDialog::getSaveFileName(this, "Zapisz jako...", QDir::currentPath(), "Text files (*.txt)");
     if (fileName == NULL) {
         return;
     }
@@ -89,7 +125,7 @@ void MainWindow::saveBoardAs()
 
 void MainWindow::createBoard()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, "New Board...", QDir::currentPath(), "Text files (*.txt)");
+    QString fileName = QFileDialog::getSaveFileName(this, "Nowa tablica...", QDir::currentPath(), "Text files (*.txt)");
     addBoard(fileName);
 }
 
@@ -102,7 +138,8 @@ void MainWindow::addBoard(QString fileName)
     QFileInfo fileInfo(fileName);
 
     Board *board = new Board(fileName);
-    ui->tabWidget->addTab(board, fileInfo.fileName());
+    int index = ui->tabWidget->addTab(board, fileInfo.fileName());
+    ui->tabWidget->setCurrentIndex(index);
 
     setBoardActionsEnabled(true);
 }

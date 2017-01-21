@@ -1,13 +1,13 @@
 #include "board.h"
 #include "ui_board.h"
 
-Board::Board(QString filename, QWidget *parent) :
+Board::Board(QString fileName, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Board)
 {
     ui->setupUi(this);
 
-    loadFromFile(filename);
+    loadFromFile(fileName);
 }
 
 Board::~Board()
@@ -34,11 +34,11 @@ NoteList* Board::getList(int index)
     return dynamic_cast<NoteList*>(layout->itemAt(index)->widget());
 }
 
-void Board::loadFromFile(QString filename)
+void Board::loadFromFile(QString fileName)
 {
-    savedFilename = filename;
+    savedFileName = fileName;
 
-    QFile file(filename);
+    QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
         qDebug() << "Error loading board from file";
         return;
@@ -61,7 +61,7 @@ void Board::addEmptyList()
 
 void Board::save()
 {
-    saveAs(savedFilename);
+    saveAs(savedFileName);
 }
 
 void Board::saveAs(QString fileName)
@@ -125,4 +125,10 @@ void Board::parseFile(QTextStream &stream)
 void Board::on_addListButton_clicked()
 {
     addEmptyList();
+}
+
+QString Board::getName()
+{
+    QFileInfo fileInfo(savedFileName);
+    return fileInfo.fileName();
 }
