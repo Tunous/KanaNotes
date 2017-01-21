@@ -4,8 +4,8 @@
 #include <QMainWindow>
 #include <QtWidgets>
 
-#include "notelistview.h"
-#include "boardwidget.h"
+#include "notelist.h"
+#include "board.h"
 
 namespace Ui {
 class MainWindow;
@@ -43,7 +43,7 @@ private:
     void setBoardActionsEnabled(bool enabled);
     void addBoard(QString fileName);
 
-    BoardWidget* getBoard(int index);
+    Board* getBoard(int index);
 };
 
 #endif // MAINWINDOW_H

@@ -1,9 +1,9 @@
-#include "notelistview.h"
-#include "ui_notelistview.h"
+#include "notelist.h"
+#include "ui_notelist.h"
 
-NoteListView::NoteListView(QString name, QList<QString> *notes, QWidget *parent) :
+NoteList::NoteList(QString name, QList<QString> *notes, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::NoteListView),
+    ui(new Ui::NoteList),
     edited(false)
 {
     ui->setupUi(this);
@@ -22,27 +22,27 @@ NoteListView::NoteListView(QString name, QList<QString> *notes, QWidget *parent)
     ui->actionsButton->setMenu(menu);
 }
 
-NoteListView::~NoteListView()
+NoteList::~NoteList()
 {
     delete ui;
 }
 
-void NoteListView::createNote()
+void NoteList::createNote()
 {
     ui->noteContainer->layout()->addWidget(new Note());
 }
 
-void NoteListView::on_actionsButton_clicked()
+void NoteList::on_actionsButton_clicked()
 {
     createNote();
 }
 
-void NoteListView::on_actionRemoveList_triggered()
+void NoteList::on_actionRemoveList_triggered()
 {
     close();
 }
 
-bool NoteListView::hasUnsavedChanges()
+bool NoteList::hasUnsavedChanges()
 {
     if (edited) {
         return true;
@@ -59,17 +59,17 @@ bool NoteListView::hasUnsavedChanges()
     return false;
 }
 
-Note* NoteListView::getNote(int index) const
+Note* NoteList::getNote(int index) const
 {
     return dynamic_cast<Note*>(ui->noteContainer->layout()->itemAt(index)->widget());
 }
 
-QString NoteListView::getName()
+QString NoteList::getName()
 {
     return ui->nameInput->text();
 }
 
-QList<QString> NoteListView::getNotes()
+QList<QString> NoteList::getNotes()
 {
     QList<QString> notes;
 

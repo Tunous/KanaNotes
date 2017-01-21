@@ -13,10 +13,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-BoardWidget* MainWindow::getBoard(int index)
+Board* MainWindow::getBoard(int index)
 {
     QWidget *widget = ui->tabWidget->widget(index);
-    BoardWidget *board = dynamic_cast<BoardWidget*>(widget);
+    Board *board = dynamic_cast<Board*>(widget);
     return board;
 }
 
@@ -40,7 +40,7 @@ void MainWindow::closeBoard(int index)
         return;
     }
 
-    BoardWidget *board = getBoard(index);
+    Board *board = getBoard(index);
     if (board->hasUnsavedChanges()) {
         // TODO: Prompt to save
         return;
@@ -102,7 +102,7 @@ void MainWindow::addBoard(QString fileName)
 
     QFileInfo fileInfo(fileName);
 
-    BoardWidget *board = new BoardWidget(fileName);
+    Board *board = new Board(fileName);
     ui->tabWidget->addTab(board, fileInfo.fileName());
 
     setBoardActionsEnabled(true);

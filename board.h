@@ -1,24 +1,24 @@
-#ifndef BOARDWIDGET_H
-#define BOARDWIDGET_H
+#ifndef BOARD_H
+#define BOAR_H
 
 #include <QWidget>
 #include <QFile>
 
-#include "notelistview.h"
+#include "notelist.h"
 
 namespace Ui {
-class BoardWidget;
+class Board;
 }
 
-class BoardWidget : public QWidget
+class Board : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit BoardWidget(QString filename, QWidget *parent = 0);
-    ~BoardWidget();
+    explicit Board(QString filename, QWidget *parent = 0);
+    ~Board();
 
-    void addList(NoteListView *list);
+    void addList(NoteList *list);
 
     void saveAs(QString fileName);
     void save();
@@ -29,7 +29,7 @@ private slots:
     void on_addListButton_clicked();
 
 private:
-    Ui::BoardWidget *ui;
+    Ui::Board *ui;
     QString savedFilename;
 
     void addEmptyList();
@@ -39,4 +39,4 @@ private:
     void parseFile(QTextStream &stream);
 };
 
-#endif // BOARDWIDGET_H
+#endif // BOARD_H

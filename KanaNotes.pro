@@ -25,16 +25,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    notelistview.cpp \
-    boardwidget.cpp \
-    note.cpp
+    note.cpp \
+    notelist.cpp \
+    board.cpp
 
 HEADERS  += mainwindow.h \
-    notelistview.h \
-    boardwidget.h \
-    note.h
+    note.h \
+    notelist.h \
+    board.h
 
 FORMS    += mainwindow.ui \
-    notelistview.ui \
-    boardwidget.ui \
-    note.ui
+    note.ui \
+    notelist.ui \
+    board.ui

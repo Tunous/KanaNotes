@@ -1,24 +1,24 @@
-#include "boardwidget.h"
-#include "ui_boardwidget.h"
+#include "board.h"
+#include "ui_board.h"
 
-BoardWidget::BoardWidget(QString filename, QWidget *parent) :
+Board::Board(QString filename, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::BoardWidget)
+    ui(new Ui::Board)
 {
     ui->setupUi(this);
 
     loadFromFile(filename);
 }
 
-BoardWidget::~BoardWidget()
+Board::~Board()
 {
     delete ui;
 }
 
-bool BoardWidget::hasUnsavedChanges()
+bool Board::hasUnsavedChanges()
 {
     for (int i = 0; i < ui->listContainer->layout()->count(); i++) {
-        NoteListView *list = dynamic_cast<NoteListView*>(ui->listContainer->layout()->itemAt(i));
+        NoteList *list = dynamic_cast<NoteList*>(ui->listContainer->layout()->itemAt(i));
         if (list != NULL && list->hasUnsavedChanges()) {
             return true;
         }
@@ -27,7 +27,7 @@ bool BoardWidget::hasUnsavedChanges()
     return false;
 }
 
-void BoardWidget::loadFromFile(QString filename)
+void Board::loadFromFile(QString filename)
 {
     savedFilename = filename;
 
@@ -42,22 +42,22 @@ void BoardWidget::loadFromFile(QString filename)
     file.close();
 }
 
-void BoardWidget::addList(NoteListView *list)
+void Board::addList(NoteList *list)
 {
     ui->listContainer->layout()->addWidget(list);
 }
 
-void BoardWidget::addEmptyList()
+void Board::addEmptyList()
 {
-    addList(new NoteListView(""));
+    addList(new NoteList(""));
 }
 
-void BoardWidget::save()
+void Board::save()
 {
     saveAs(savedFilename);
 }
 
-void BoardWidget::saveAs(QString fileName)
+void Board::saveAs(QString fileName)
 {
     QFile file(fileName);
     if (!file.open(QFile::WriteOnly | QFile::Text)) {
@@ -70,7 +70,7 @@ void BoardWidget::saveAs(QString fileName)
     QLayout *layout = ui->listContainer->layout();
     for (int i = 0; i < layout->count(); i++) {
         QWidget *widget = layout->itemAt(i)->widget();
-        NoteListView *list = dynamic_cast<NoteListView*>(widget);
+        NoteList *list = dynamic_cast<NoteList*>(widget);
 
         if (list != NULL) {
             out << "# " << list->getName() << endl;
@@ -86,7 +86,7 @@ void BoardWidget::saveAs(QString fileName)
     file.close();
 }
 
-void BoardWidget::parseFile(QTextStream &stream)
+void Board::parseFile(QTextStream &stream)
 {
     QString line;
     QString listName = "";
@@ -97,7 +97,7 @@ void BoardWidget::parseFile(QTextStream &stream)
 
         if (line.startsWith("#")) {
             if (listName != "") {
-                addList(new NoteListView(listName, notes));
+                addList(new NoteList(listName, notes));
                 notes = new QList<QString>();
             }
 
@@ -110,11 +110,11 @@ void BoardWidget::parseFile(QTextStream &stream)
     }
 
     if (listName != "") {
-        addList(new NoteListView(listName, notes));
+        addList(new NoteList(listName, notes));
     }
 }
 
-void BoardWidget::on_addListButton_clicked()
+void Board::on_addListButton_clicked()
 {
     addEmptyList();
 }

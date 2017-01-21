@@ -1,5 +1,5 @@
-#ifndef NOTELISTVIEW_H
-#define NOTELISTVIEW_H
+#ifndef NOTELIST_H
+#define NOTELIST_H
 
 #include <QWidget>
 #include <QMenu>
@@ -9,16 +9,16 @@
 #include "note.h"
 
 namespace Ui {
-class NoteListView;
+class NoteList;
 }
 
-class NoteListView : public QWidget
+class NoteList : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit NoteListView(QString name, QList<QString> *notes = NULL, QWidget *parent = 0);
-    ~NoteListView();
+    explicit NoteList(QString name, QList<QString> *notes = NULL, QWidget *parent = 0);
+    ~NoteList();
 
     bool hasUnsavedChanges();
     QString getName();
@@ -29,11 +29,11 @@ private slots:
     void on_actionRemoveList_triggered();
 
 private:
-    Ui::NoteListView *ui;
+    Ui::NoteList *ui;
     bool edited;
 
     void createNote();
     Note* getNote(int index) const;
 };
 
-#endif // NOTELISTVIEW_H
+#endif // NOTELIST_H
