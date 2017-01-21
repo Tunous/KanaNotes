@@ -16,8 +16,7 @@ MainWindow::~MainWindow()
 Board* MainWindow::getBoard(int index)
 {
     QWidget *widget = ui->tabWidget->widget(index);
-    Board *board = dynamic_cast<Board*>(widget);
-    return board;
+    return dynamic_cast<Board*>(widget);
 }
 
 void MainWindow::openBoard()

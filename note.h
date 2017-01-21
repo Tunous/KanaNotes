@@ -17,6 +17,7 @@ public:
 
     bool hasUnsavedChanges();
     QString getText() const;
+    void saved();
 
 private slots:
     void on_lineEdit_textChanged(const QString &arg1);

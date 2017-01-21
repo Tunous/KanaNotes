@@ -37,6 +37,7 @@ private:
     void loadFromFile(QString filename);
 
     void parseFile(QTextStream &stream);
+    NoteList *getList(int index);
 };
 
 #endif // BOARD_H

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>550</width>
-    <height>420</height>
+    <width>871</width>
+    <height>623</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>550</width>
+     <width>871</width>
      <height>31</height>
     </rect>
    </property>
@@ -146,7 +146,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Close</string>
+    <string>&amp;Close</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+W</string>
@@ -157,7 +157,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Close All</string>
+    <string>C&amp;lose All</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+W</string>

@@ -3,8 +3,7 @@
 
 NoteList::NoteList(QString name, QList<QString> *notes, QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::NoteList),
-    edited(false)
+    ui(new Ui::NoteList)
 {
     ui->setupUi(this);
     ui->nameInput->setText(name);
@@ -21,11 +20,25 @@ NoteList::NoteList(QString name, QList<QString> *notes, QWidget *parent) :
     menu->addAction(ui->actionRemoveList);
 
     ui->actionsButton->setMenu(menu);
+
+    saved();
 }
 
 NoteList::~NoteList()
 {
     delete ui;
+}
+
+void NoteList::saved()
+{
+    edited = false;
+
+    for (int i = 0; i < ui->noteContainer->layout()->count(); i++) {
+        Note *note = getNote(i);
+        if (note != NULL) {
+            note->saved();
+        }
+    }
 }
 
 void NoteList::createNote()
@@ -80,4 +93,9 @@ QList<QString> NoteList::getNotes()
     }
 
     return notes;
+}
+
+void NoteList::on_nameInput_textChanged(const QString &arg1)
+{
+    edited = true;
 }

@@ -30,3 +30,8 @@ QString Note::getText() const
 {
     return ui->lineEdit->text();
 }
+
+void Note::saved()
+{
+    edited = false;
+}

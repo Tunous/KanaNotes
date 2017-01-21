@@ -17,14 +17,21 @@ Board::~Board()
 
 bool Board::hasUnsavedChanges()
 {
-    for (int i = 0; i < ui->listContainer->layout()->count(); i++) {
-        NoteList *list = dynamic_cast<NoteList*>(ui->listContainer->layout()->itemAt(i));
+    QLayout *layout = ui->listContainer->layout();
+    for (int i = 0; i < layout->count(); i++) {
+        NoteList *list = getList(i);
         if (list != NULL && list->hasUnsavedChanges()) {
             return true;
         }
     }
 
     return false;
+}
+
+NoteList* Board::getList(int index)
+{
+    QLayout *layout = ui->listContainer->layout();
+    return dynamic_cast<NoteList*>(layout->itemAt(index)->widget());
 }
 
 void Board::loadFromFile(QString filename)
@@ -69,8 +76,7 @@ void Board::saveAs(QString fileName)
 
     QLayout *layout = ui->listContainer->layout();
     for (int i = 0; i < layout->count(); i++) {
-        QWidget *widget = layout->itemAt(i)->widget();
-        NoteList *list = dynamic_cast<NoteList*>(widget);
+        NoteList *list = getList(i);
 
         if (list != NULL) {
             out << "# " << list->getName() << endl;
@@ -80,6 +86,8 @@ void Board::saveAs(QString fileName)
             }
 
             out << endl;
+
+            list->saved();
         }
     }
     file.flush();

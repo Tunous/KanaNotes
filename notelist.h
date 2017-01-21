@@ -23,10 +23,13 @@ public:
     bool hasUnsavedChanges();
     QString getName();
     QList<QString> getNotes();
+    void saved();
 
 private slots:
     void on_actionsButton_clicked();
     void on_actionRemoveList_triggered();
+
+    void on_nameInput_textChanged(const QString &arg1);
 
 private:
     Ui::NoteList *ui;
