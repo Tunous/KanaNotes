@@ -29,13 +29,11 @@ signals:
     void removeRequested(NoteList *list);
 
 private slots:
-    void on_actionsButton_clicked();
-    void on_actionRemoveList_triggered();
-
-    void on_nameInput_textChanged(const QString &arg1);
     void removeNote(Note *note);
 
+    void on_nameInput_textChanged(const QString &arg1);
     void on_addNoteButton_clicked();
+    void on_actionRemove_triggered();
 
 private:
     Ui::NoteList *ui;

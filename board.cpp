@@ -64,7 +64,6 @@ void Board::addList(NoteList *list)
 
 void Board::removeList(NoteList *list)
 {
-    ui->listContainer->layout()->removeWidget(list);
     list->disconnect();
     delete list;
 

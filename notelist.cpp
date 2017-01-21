@@ -17,7 +17,9 @@ NoteList::NoteList(QString name, QList<QString> *notes, QWidget *parent) :
     }
 
     QMenu *menu = new QMenu();
-    menu->addAction(ui->actionRemoveList);
+    menu->addAction(ui->actionRemove);
+    menu->addAction(ui->actionMoveLeft);
+    menu->addAction(ui->actionMoveRight);
 
     ui->actionsButton->setMenu(menu);
 
@@ -45,17 +47,8 @@ void NoteList::addNote(Note *note)
 {
     connect(note, SIGNAL(removeRequested(Note*)), this, SLOT(removeNote(Note*)));
     ui->noteContainer->layout()->addWidget(note);
-}
 
-void NoteList::on_actionsButton_clicked()
-{
-    emit removeRequested(this);
-    //addNote(new Note());
-}
-
-void NoteList::on_actionRemoveList_triggered()
-{
-    emit removeRequested(this);
+    edited = true;
 }
 
 bool NoteList::hasUnsavedChanges()
@@ -106,7 +99,6 @@ void NoteList::on_nameInput_textChanged(const QString &arg1)
 
 void NoteList::removeNote(Note *note)
 {
-    ui->noteContainer->layout()->removeWidget(note);
     note->disconnect();
     delete note;
 }
@@ -115,4 +107,9 @@ void NoteList::on_addNoteButton_clicked()
 {
     addNote(new Note(ui->newNoteInput->text()));
     ui->newNoteInput->clear();
+}
+
+void NoteList::on_actionRemove_triggered()
+{
+    emit removeRequested(this);
 }
