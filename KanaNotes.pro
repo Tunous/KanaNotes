@@ -27,14 +27,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     note.cpp \
     notelist.cpp \
-    board.cpp
+    board.cpp \
+    notedialog.cpp
 
 HEADERS  += mainwindow.h \
     note.h \
     notelist.h \
-    board.h
+    board.h \
+    notedialog.h
 
 FORMS    += mainwindow.ui \
     note.ui \
     notelist.ui \
-    board.ui
+    board.ui \
+    notedialog.ui

@@ -38,7 +38,7 @@ void NoteList::saved()
     for (int i = 0; i < ui->noteContainer->layout()->count(); i++) {
         Note *note = getNote(i);
         if (note != NULL) {
-            note->saved();
+            note->markAsSaved();
         }
     }
 }
@@ -92,11 +92,6 @@ QList<QString> NoteList::getNotes()
     return notes;
 }
 
-void NoteList::on_nameInput_textChanged(const QString &arg1)
-{
-    edited = true;
-}
-
 void NoteList::removeNote(Note *note)
 {
     note->deleteLater();
@@ -105,11 +100,21 @@ void NoteList::removeNote(Note *note)
 
 void NoteList::on_addNoteButton_clicked()
 {
-    addNote(new Note(ui->newNoteInput->text()));
+    QString text = ui->newNoteInput->text().trimmed();
+
+    if (!text.isEmpty()) {
+        addNote(new Note(text));
+    }
+
     ui->newNoteInput->clear();
 }
 
 void NoteList::on_actionRemove_triggered()
 {
     emit removeRequested(this);
+}
+
+void NoteList::on_nameInput_textEdited(const QString &arg1)
+{
+    edited = true;
 }

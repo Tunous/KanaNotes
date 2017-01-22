@@ -31,9 +31,9 @@ signals:
 private slots:
     void removeNote(Note *note);
 
-    void on_nameInput_textChanged(const QString &arg1);
     void on_addNoteButton_clicked();
     void on_actionRemove_triggered();
+    void on_nameInput_textEdited(const QString &arg1);
 
 private:
     Ui::NoteList *ui;

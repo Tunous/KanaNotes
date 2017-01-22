@@ -2,6 +2,9 @@
 #define NOTE_H
 
 #include <QWidget>
+#include <QDialog>
+
+#include "notedialog.h"
 
 namespace Ui {
 class Note;
@@ -15,19 +18,19 @@ public:
     explicit Note(QString text = "", QWidget *parent = 0);
     ~Note();
 
-    bool hasUnsavedChanges();
+    bool hasUnsavedChanges() const;
     QString getText() const;
-    void saved();
+
+    void markAsSaved();
 
 signals:
     void removeRequested(Note *note);
 
 private slots:
-    void on_actionMoveLeft_triggered();
-    void on_actionMoveUp_triggered();
-    void on_actionMoveRight_triggered();
-    void on_actionMoveDown_triggered();
-    void on_actionRemove_triggered();
+    void on_editButton_clicked();
+
+    void setText(const QString &text);
+    void remove();
 
 private:
     Ui::Note *ui;

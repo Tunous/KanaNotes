@@ -46,15 +46,12 @@
     </widget>
    </item>
    <item>
-    <widget class="QToolButton" name="actionsButton">
+    <widget class="QToolButton" name="editButton">
      <property name="text">
-      <string>...</string>
+      <string>Edit</string>
      </property>
-     <property name="popupMode">
-      <enum>QToolButton::InstantPopup</enum>
-     </property>
-     <property name="arrowType">
-      <enum>Qt::DownArrow</enum>
+     <property name="icon">
+      <iconset theme="edit"/>
      </property>
     </widget>
    </item>

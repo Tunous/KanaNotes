@@ -7,17 +7,7 @@ Note::Note(QString text, QWidget *parent) :
     ui(new Ui::Note)
 {
     ui->setupUi(this);
-    ui->textLabel->setText(text);
-
-    QMenu *menu = new QMenu(this);
-    menu->addAction(ui->actionRemove);
-    menu->addAction(ui->actionMoveLeft);
-    menu->addAction(ui->actionMoveUp);
-    menu->addAction(ui->actionMoveRight);
-    menu->addAction(ui->actionMoveDown);
-
-    ui->actionsButton->setMenu(menu);
-
+    setText(text);
     edited = false;
 }
 
@@ -26,9 +16,14 @@ Note::~Note()
     delete ui;
 }
 
-bool Note::hasUnsavedChanges()
+bool Note::hasUnsavedChanges() const
 {
     return edited;
+}
+
+void Note::markAsSaved()
+{
+    edited = false;
 }
 
 QString Note::getText() const
@@ -36,32 +31,27 @@ QString Note::getText() const
     return ui->textLabel->text();
 }
 
-void Note::saved()
+void Note::setText(const QString &text)
 {
-    edited = false;
+    ui->textLabel->setText(text);
+    edited = true;
 }
 
-void Note::on_actionMoveLeft_triggered()
-{
-
-}
-
-void Note::on_actionMoveUp_triggered()
-{
-
-}
-
-void Note::on_actionMoveRight_triggered()
-{
-
-}
-
-void Note::on_actionMoveDown_triggered()
-{
-
-}
-
-void Note::on_actionRemove_triggered()
+void Note::remove()
 {
     emit removeRequested(this);
+}
+
+void Note::on_editButton_clicked()
+{
+    NoteDialog *dialog = new NoteDialog(getText());
+
+    connect(dialog, SIGNAL(removeRequested()), this, SLOT(remove()));
+    connect(dialog, SIGNAL(textChanged(QString)), this, SLOT(setText(QString)));
+
+    dialog->exec();
+
+    if (dialog->getText().trimmed().isEmpty()) {
+        remove();
+    }
 }
