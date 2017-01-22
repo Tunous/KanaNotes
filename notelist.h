@@ -35,12 +35,15 @@ private slots:
     void on_actionRemove_triggered();
     void on_nameInput_textEdited(const QString &arg1);
 
+    void on_newNoteInput_returnPressed();
+
 private:
     Ui::NoteList *ui;
     bool edited;
 
     void addNote(Note *note);
     Note* getNote(int index) const;
+    void addNewNote();
 };
 
 #endif // NOTELIST_H

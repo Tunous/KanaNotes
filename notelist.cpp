@@ -98,7 +98,7 @@ void NoteList::removeNote(Note *note)
     edited = true;
 }
 
-void NoteList::on_addNoteButton_clicked()
+void NoteList::addNewNote()
 {
     QString text = ui->newNoteInput->text().trimmed();
 
@@ -109,6 +109,11 @@ void NoteList::on_addNoteButton_clicked()
     ui->newNoteInput->clear();
 }
 
+void NoteList::on_addNoteButton_clicked()
+{
+    addNewNote();
+}
+
 void NoteList::on_actionRemove_triggered()
 {
     emit removeRequested(this);
@@ -117,4 +122,9 @@ void NoteList::on_actionRemove_triggered()
 void NoteList::on_nameInput_textEdited(const QString &arg1)
 {
     edited = true;
+}
+
+void NoteList::on_newNoteInput_returnPressed()
+{
+    addNewNote();
 }
