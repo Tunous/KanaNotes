@@ -39,13 +39,6 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="moveToPositionButton">
-       <property name="text">
-        <string>Move to position...</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
    <item alignment="Qt::AlignBottom">
