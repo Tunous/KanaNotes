@@ -63,17 +63,10 @@ void MainWindow::closeSelectedBoard()
 void MainWindow::closeAllBoards()
 {
     int tabsCount = ui->tabWidget->count();
-    int removeIndex = 0;
 
     for (int i = 0; i < tabsCount; i++) {
-        Board *board = getBoard(removeIndex);
-        if (board == NULL) {
-            removeIndex += 1;
-            continue;
-        }
-
-        if (canClose(board)) {
-            ui->tabWidget->removeTab(removeIndex);
+        if (canClose(getBoard(0))) {
+            ui->tabWidget->removeTab(0);
         } else {
             return;
         }
@@ -92,8 +85,8 @@ bool MainWindow::canClose(Board *board)
 
     QMessageBox::StandardButton reply = QMessageBox::question(
                 this,
-                "Niezapisane zmiany",
-                "Masz niezapisane zmiany dla \"" + board->getName() + "\". Zapisać?",
+                "Unsaved changes",
+                "You have unsaved changes for \"" + board->getName() + "\". Save?",
                 QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
 
     switch (reply) {

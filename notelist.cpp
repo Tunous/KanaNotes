@@ -36,10 +36,7 @@ void NoteList::saved()
     edited = false;
 
     for (int i = 0; i < ui->noteContainer->layout()->count(); i++) {
-        Note *note = getNote(i);
-        if (note != NULL) {
-            note->markAsSaved();
-        }
+        getNote(i)->markAsSaved();
     }
 }
 
@@ -72,8 +69,7 @@ bool NoteList::hasUnsavedChanges()
 
     int count = ui->noteContainer->layout()->count();
     for (int i = 0; i < count; i++) {
-        Note *note = getNote(i);
-        if (note != NULL && note->hasUnsavedChanges()) {
+        if (getNote(i)->hasUnsavedChanges()) {
             return true;
         }
     }
@@ -96,10 +92,7 @@ QList<QString> NoteList::getNotes()
     QList<QString> notes;
 
     for (int i = 0; i < ui->noteContainer->layout()->count(); i++) {
-        Note *note = getNote(i);
-        if (note != NULL) {
-            notes.append(note->getText());
-        }
+        notes.append(getNote(i)->getText());
     }
 
     return notes;

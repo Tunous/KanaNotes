@@ -107,17 +107,15 @@ void Board::saveAs(QString fileName)
     for (int i = 0; i < layout->count(); i++) {
         NoteList *list = getList(i);
 
-        if (list != NULL) {
-            out << "# " << list->getName() << endl;
+        out << "# " << list->getName() << endl;
 
-            foreach (QString note, list->getNotes()) {
-                out << "- " << note << endl;
-            }
-
-            out << endl;
-
-            list->saved();
+        foreach (QString note, list->getNotes()) {
+            out << "- " << note << endl;
         }
+
+        out << endl;
+
+        list->saved();
     }
     file.flush();
     file.close();
@@ -154,7 +152,7 @@ int Board::selectList(int currentIndex)
     QLayout *listsLayout = ui->listContainer->layout();
 
     for (int i = 0; i < listsLayout->count(); i++) {
-        listNames.append(getLis(i)->getName());
+        listNames.append(getList(i)->getName());
     }
 
     SelectListDialog *dialog = new SelectListDialog(listNames, currentIndex, this);
