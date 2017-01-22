@@ -64,9 +64,7 @@ void Board::addList(NoteList *list)
 
 void Board::removeList(NoteList *list)
 {
-    list->disconnect();
-    delete list;
-
+    list->deleteLater();
     edited = true;
 }
 

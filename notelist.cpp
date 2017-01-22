@@ -99,8 +99,8 @@ void NoteList::on_nameInput_textChanged(const QString &arg1)
 
 void NoteList::removeNote(Note *note)
 {
-    note->disconnect();
-    delete note;
+    note->deleteLater();
+    edited = true;
 }
 
 void NoteList::on_addNoteButton_clicked()

@@ -23,7 +23,11 @@ signals:
     void removeRequested(Note *note);
 
 private slots:
-    void on_removeButton_clicked();
+    void on_actionMoveLeft_triggered();
+    void on_actionMoveUp_triggered();
+    void on_actionMoveRight_triggered();
+    void on_actionMoveDown_triggered();
+    void on_actionRemove_triggered();
 
 private:
     Ui::Note *ui;
