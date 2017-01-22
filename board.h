@@ -6,6 +6,7 @@
 #include <QFileInfo>
 
 #include "notelist.h"
+#include "selectlistdialog.h"
 
 namespace Ui {
 class Board;
@@ -27,9 +28,12 @@ public:
     bool hasUnsavedChanges();
     QString getName();
 
+    QList<QString> getListNames();
+
 private slots:
     void on_addListButton_clicked();
     void removeList(NoteList *list);
+    void moveNote(NoteList *list, Note *note);
 
 private:
     Ui::Board *ui;
@@ -37,6 +41,7 @@ private:
     bool edited;
 
     void addEmptyList();
+    int selectList();
 
     void loadFromFile(QString filename);
 

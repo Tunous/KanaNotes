@@ -29,3 +29,8 @@ void NoteDialog::on_lineEdit_textEdited(const QString &arg1)
 {
     emit textChanged(arg1.trimmed());
 }
+
+void NoteDialog::on_moveToListButton_clicked()
+{
+    emit moveRequested();
+}

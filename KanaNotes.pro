@@ -28,16 +28,19 @@ SOURCES += main.cpp\
     note.cpp \
     notelist.cpp \
     board.cpp \
-    notedialog.cpp
+    notedialog.cpp \
+    selectlistdialog.cpp
 
 HEADERS  += mainwindow.h \
     note.h \
     notelist.h \
     board.h \
-    notedialog.h
+    notedialog.h \
+    selectlistdialog.h
 
 FORMS    += mainwindow.ui \
     note.ui \
     notelist.ui \
     board.ui \
-    notedialog.ui
+    notedialog.ui \
+    selectlistdialog.ui

@@ -45,10 +45,17 @@ void NoteList::saved()
 
 void NoteList::addNote(Note *note)
 {
-    connect(note, SIGNAL(removeRequested(Note*)), this, SLOT(removeNote(Note*)));
+    connect(note, SIGNAL(removeRequested(Note*)), this, SLOT(destroyNote(Note*)));
+    connect(note, SIGNAL(moveRequested(Note*)), this, SLOT(requestMoveNote(Note*)));
+
     ui->noteContainer->layout()->addWidget(note);
 
     edited = true;
+}
+
+void NoteList::requestMoveNote(Note *note)
+{
+    emit noteMoveRequested(this, note);
 }
 
 bool NoteList::hasUnsavedChanges()
@@ -92,9 +99,16 @@ QList<QString> NoteList::getNotes()
     return notes;
 }
 
-void NoteList::removeNote(Note *note)
+void NoteList::destroyNote(Note *note)
 {
     note->deleteLater();
+    edited = true;
+}
+
+void NoteList::removeNote(Note *note)
+{
+    ui->noteContainer->layout()->removeWidget(note);
+    note->disconnect();
     edited = true;
 }
 

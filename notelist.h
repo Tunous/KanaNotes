@@ -24,24 +24,29 @@ public:
     QString getName();
     QList<QString> getNotes();
     void saved();
+    void addNote(Note *note);
+
+public slots:
+    void removeNote(Note *note);
 
 signals:
     void removeRequested(NoteList *list);
+    void noteMoveRequested(NoteList *list, Note *note);
 
 private slots:
-    void removeNote(Note *note);
-
     void on_addNoteButton_clicked();
     void on_actionRemove_triggered();
     void on_nameInput_textEdited(const QString &arg1);
 
     void on_newNoteInput_returnPressed();
 
+    void requestMoveNote(Note *note);
+    void destroyNote(Note *note);
+
 private:
     Ui::NoteList *ui;
     bool edited;
 
-    void addNote(Note *note);
     Note* getNote(int index) const;
     void addNewNote();
 };

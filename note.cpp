@@ -44,14 +44,29 @@ void Note::remove()
 
 void Note::on_editButton_clicked()
 {
-    NoteDialog *dialog = new NoteDialog(getText());
+    dialog = new NoteDialog(getText());
 
     connect(dialog, SIGNAL(removeRequested()), this, SLOT(remove()));
+    connect(dialog, SIGNAL(moveRequested()), this, SLOT(requestMove()));
     connect(dialog, SIGNAL(textChanged(QString)), this, SLOT(setText(QString)));
 
     dialog->exec();
 
     if (dialog->getText().trimmed().isEmpty()) {
         remove();
+    }
+
+    dialog = NULL;
+}
+
+void Note::requestMove()
+{
+    emit moveRequested(this);
+}
+
+void Note::closeDialog()
+{
+    if (dialog != NULL) {
+        dialog->close();
     }
 }

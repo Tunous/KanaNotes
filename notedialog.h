@@ -19,11 +19,14 @@ public:
 
 signals:
     void removeRequested();
+    void moveRequested();
     void textChanged(const QString &text);
 
 private slots:
     void on_removeButton_clicked();
     void on_lineEdit_textEdited(const QString &arg1);
+
+    void on_moveToListButton_clicked();
 
 private:
     Ui::NoteDialog *ui;

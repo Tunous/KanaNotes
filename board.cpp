@@ -57,9 +57,22 @@ void Board::loadFromFile(QString fileName)
 void Board::addList(NoteList *list)
 {
     connect(list, SIGNAL(removeRequested(NoteList*)), this, SLOT(removeList(NoteList*)));
+    connect(list, SIGNAL(noteMoveRequested(NoteList*,Note*)), this, SLOT(moveNote(NoteList*,Note*)));
+
     ui->listContainer->layout()->addWidget(list);
 
     edited = true;
+}
+
+void Board::moveNote(NoteList *list, Note *note)
+{
+    int newIndex = selectList();
+    if (newIndex < 0) return;
+
+    note->closeDialog();
+
+    list->removeNote(note);
+    getList(newIndex)->addNote(note);
 }
 
 void Board::removeList(NoteList *list)
@@ -147,4 +160,39 @@ QString Board::getName()
 {
     QFileInfo fileInfo(savedFileName);
     return fileInfo.fileName();
+}
+
+QList<QString> Board::getListNames()
+{
+    QList<QString> listNames;
+
+    for (int i = 0; i < ui->listContainer->layout()->count(); i++) {
+        NoteList* list = getList(i);
+        if (list != NULL) {
+            listNames.append(list->getName());
+        }
+    }
+
+    return listNames;
+}
+
+int Board::selectList()
+{
+    QStringList listNames;
+
+    for (int i = 0; i < ui->listContainer->layout()->count(); i++) {
+        NoteList* list = getList(i);
+        if (list != NULL) {
+            listNames.append(list->getName());
+        }
+    }
+
+    SelectListDialog *dialog = new SelectListDialog(listNames, this);
+    int result = dialog->exec();
+
+    if (result == QDialog::Accepted) {
+        return dialog->selectedIndex();
+    }
+
+    return -1;
 }
