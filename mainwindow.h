@@ -43,7 +43,7 @@ private:
     void saveBoardAs();
 
     void setBoardActionsEnabled(bool enabled);
-    void addBoard(QString fileName);
+    void addBoard(QString fileName, bool createLists = false);
 
     bool canClose(Board *board);
 

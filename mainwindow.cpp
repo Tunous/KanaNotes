@@ -132,10 +132,10 @@ void MainWindow::createBoard()
                 QDir::currentPath(),
                 "Text files (*.txt)");
 
-    addBoard(fileName);
+    addBoard(fileName, true);
 }
 
-void MainWindow::addBoard(QString fileName)
+void MainWindow::addBoard(QString fileName, bool createLists)
 {
     if (fileName == NULL) {
         return;
@@ -148,6 +148,12 @@ void MainWindow::addBoard(QString fileName)
     ui->tabWidget->setCurrentIndex(index);
 
     setBoardActionsEnabled(true);
+
+    if (createLists) {
+        board->addList(new NoteList("To Do"));
+        board->addList(new NoteList("Doing"));
+        board->addList(new NoteList("Done"));
+    }
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
