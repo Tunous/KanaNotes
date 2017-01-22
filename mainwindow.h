@@ -45,6 +45,8 @@ private:
 
     Board* getBoard(int index);
     bool canClose(Board *board);
+
+    void closeEvent(QCloseEvent *event);
 };
 
 #endif // MAINWINDOW_H

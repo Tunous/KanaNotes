@@ -183,3 +183,13 @@ void MainWindow::on_actionExit_triggered()
 {
     close();
 }
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    for (int i = 0; i < ui->tabWidget->count(); i++) {
+        Board *board = getBoard(i);
+        if (!canClose(board)) {
+            event->ignore();
+        }
+    }
+}
