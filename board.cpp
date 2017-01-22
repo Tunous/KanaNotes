@@ -148,18 +148,16 @@ void Board::destroyList(NoteList *list)
     edited = true;
 }
 
-int Board::selectList()
+int Board::selectList(int currentIndex)
 {
     QStringList listNames;
+    QLayout *listsLayout = ui->listContainer->layout();
 
-    for (int i = 0; i < ui->listContainer->layout()->count(); i++) {
-        NoteList* list = getList(i);
-        if (list != NULL) {
-            listNames.append(list->getName());
-        }
+    for (int i = 0; i < listsLayout->count(); i++) {
+        listNames.append(getLis(i)->getName());
     }
 
-    SelectListDialog *dialog = new SelectListDialog(listNames, this);
+    SelectListDialog *dialog = new SelectListDialog(listNames, currentIndex, this);
     int result = dialog->exec();
 
     if (result == QDialog::Accepted) {
@@ -172,10 +170,8 @@ int Board::selectList()
 void Board::moveNote(NoteList *list, Note *note)
 {
     int currentIndex = ui->listContainer->layout()->indexOf(list);
-    int newIndex = selectList();
+    int newIndex = selectList(currentIndex);
     if (newIndex < 0 || newIndex == currentIndex) return;
-
-    note->closeDialog();
 
     list->removeNote(note);
     getList(newIndex)->addNote(note);
@@ -194,8 +190,6 @@ void Board::moveNoteInDirection(NoteList *list, Note *note, int direction)
     } else {
         return;
     }
-
-    note->closeDialog();
 
     list->removeNote(note);
     getList(newIndex)->addNote(note);

@@ -48,7 +48,7 @@ private:
     NoteList *getList(int index);
 
     void addEmptyList();
-    int selectList();
+    int selectList(int currentIndex);
 };
 
 #endif // BOARD_H

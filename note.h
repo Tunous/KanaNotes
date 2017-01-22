@@ -22,7 +22,6 @@ public:
     QString getText() const;
 
     void markAsSaved();
-    void closeDialog();
 
 signals:
     void removeRequested(Note *note);
@@ -40,7 +39,6 @@ private slots:
 private:
     Ui::Note *ui;
     bool edited;
-    NoteDialog *dialog = NULL;
 };
 
 #endif // NOTE_H

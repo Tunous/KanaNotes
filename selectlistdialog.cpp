@@ -1,7 +1,7 @@
 #include "selectlistdialog.h"
 #include "ui_selectlistdialog.h"
 
-SelectListDialog::SelectListDialog(const QStringList &listNames, QWidget *parent) :
+SelectListDialog::SelectListDialog(const QStringList &listNames, int currentIndex, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SelectListDialog)
 {
@@ -10,7 +10,7 @@ SelectListDialog::SelectListDialog(const QStringList &listNames, QWidget *parent
     QStringListModel *model = new QStringListModel(listNames);
     ui->listView->setModel(model);
 
-    QModelIndex index = model->index(0);
+    QModelIndex index = model->index(currentIndex);
     ui->listView->setCurrentIndex(index);
 }
 

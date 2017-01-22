@@ -13,7 +13,7 @@ class SelectListDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit SelectListDialog(const QStringList &listNames, QWidget *parent = 0);
+    explicit SelectListDialog(const QStringList &listNames, int currentIndex, QWidget *parent = 0);
     ~SelectListDialog();
 
     int selectedIndex() const;

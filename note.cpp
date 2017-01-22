@@ -52,16 +52,9 @@ void Note::requestMoveInDirection(int direction)
     emit moveInDirectionRequested(this, direction);
 }
 
-void Note::closeDialog()
-{
-    if (dialog != NULL) {
-        dialog->close();
-    }
-}
-
 void Note::on_editButton_clicked()
 {
-    dialog = new NoteDialog(getText());
+    NoteDialog *dialog = new NoteDialog(getText());
 
     connect(dialog, SIGNAL(removeRequested()), this, SLOT(remove()));
     connect(dialog, SIGNAL(moveRequested()), this, SLOT(requestMove()));
@@ -73,6 +66,4 @@ void Note::on_editButton_clicked()
     if (dialog->getText().trimmed().isEmpty()) {
         remove();
     }
-
-    dialog = NULL;
 }
