@@ -128,7 +128,7 @@ void Board::saveAs(QString fileName)
 void Board::addList(NoteList *list)
 {
     connect(list, SIGNAL(removeRequested(NoteList*)), this, SLOT(destroyList(NoteList*)));
-    connect(list, SIGNAL(noteMoveRequested(NoteList*,Note*)), this, SLOT(moveNote(NoteList*,Note*)));
+    connect(list, SIGNAL(moveNoteRequested(NoteList*,Note*)), this, SLOT(moveNote(NoteList*,Note*)));
     connect(list, SIGNAL(moveNoteInDirectionRequested(NoteList*,Note*,int)), this, SLOT(moveNoteInDirection(NoteList*,Note*,int)));
     connect(list, SIGNAL(moveInDirectionRequested(NoteList*,int)), this, SLOT(moveListInDirection(NoteList*,int)));
 
@@ -171,8 +171,9 @@ int Board::selectList()
 
 void Board::moveNote(NoteList *list, Note *note)
 {
+    int currentIndex = ui->listContainer->layout()->indexOf(list);
     int newIndex = selectList();
-    if (newIndex < 0) return;
+    if (newIndex < 0 || newIndex == currentIndex) return;
 
     note->closeDialog();
 
@@ -185,23 +186,18 @@ void Board::moveNoteInDirection(NoteList *list, Note *note, int direction)
     QLayout *listsLayout = ui->listContainer->layout();
     int currentIndex = listsLayout->indexOf(list);
 
-    if (direction == 0 ||
-            (direction < 0 && currentIndex == 0) ||
-            (direction > 0 && currentIndex >= listsLayout->count())) {
+    int newIndex = currentIndex;
+    if (direction < 0 && currentIndex > 0) {
+        newIndex -= 1;
+    } else if (direction > 0 && currentIndex < listsLayout->count() - 1) {
+        newIndex += 1;
+    } else {
         return;
     }
 
     note->closeDialog();
 
     list->removeNote(note);
-
-    int newIndex = currentIndex;
-    if (direction < 0) {
-        newIndex -= 1;
-    } else {
-        newIndex += 1;
-    }
-
     getList(newIndex)->addNote(note);
 }
 
