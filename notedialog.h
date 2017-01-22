@@ -20,6 +20,7 @@ public:
 signals:
     void removeRequested();
     void moveRequested();
+    void moveInDirectionRequested(int direction);
     void textChanged(const QString &text);
 
 private slots:
@@ -27,6 +28,10 @@ private slots:
     void on_lineEdit_textEdited(const QString &arg1);
 
     void on_moveToListButton_clicked();
+
+    void on_moveLeftButton_clicked();
+
+    void on_moveRightButton_clicked();
 
 private:
     Ui::NoteDialog *ui;

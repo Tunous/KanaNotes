@@ -31,7 +31,8 @@ public slots:
 
 signals:
     void removeRequested(NoteList *list);
-    void noteMoveRequested(NoteList *list, Note *note);
+    void moveNoteRequested(NoteList *list, Note *note);
+    void moveNoteInDirectionRequested(NoteList *list, Note *note, int direction);
 
 private slots:
     void on_addNoteButton_clicked();
@@ -42,6 +43,7 @@ private slots:
 
     void requestMoveNote(Note *note);
     void destroyNote(Note *note);
+    void requestMoveNoteInDirection(Note *note, int direction);
 
 private:
     Ui::NoteList *ui;

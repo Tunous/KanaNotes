@@ -34,3 +34,13 @@ void NoteDialog::on_moveToListButton_clicked()
 {
     emit moveRequested();
 }
+
+void NoteDialog::on_moveLeftButton_clicked()
+{
+    emit moveInDirectionRequested(-1);
+}
+
+void NoteDialog::on_moveRightButton_clicked()
+{
+    emit moveInDirectionRequested(1);
+}

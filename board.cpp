@@ -58,6 +58,7 @@ void Board::addList(NoteList *list)
 {
     connect(list, SIGNAL(removeRequested(NoteList*)), this, SLOT(removeList(NoteList*)));
     connect(list, SIGNAL(noteMoveRequested(NoteList*,Note*)), this, SLOT(moveNote(NoteList*,Note*)));
+    connect(list, SIGNAL(moveNoteInDirectionRequested(NoteList*,Note*,int)), this, SLOT(moveNoteInDirection(NoteList*,Note*,int)));
 
     ui->listContainer->layout()->addWidget(list);
 
@@ -72,6 +73,31 @@ void Board::moveNote(NoteList *list, Note *note)
     note->closeDialog();
 
     list->removeNote(note);
+    getList(newIndex)->addNote(note);
+}
+
+void Board::moveNoteInDirection(NoteList *list, Note *note, int direction)
+{
+    QLayout *listsLayout = ui->listContainer->layout();
+    int currentIndex = listsLayout->indexOf(list);
+
+    if (direction == 0 ||
+            (direction < 0 && currentIndex == 0) ||
+            (direction > 0 && currentIndex >= listsLayout->count())) {
+        return;
+    }
+
+    note->closeDialog();
+
+    list->removeNote(note);
+
+    int newIndex = currentIndex;
+    if (direction < 0) {
+        newIndex -= 1;
+    } else {
+        newIndex += 1;
+    }
+
     getList(newIndex)->addNote(note);
 }
 

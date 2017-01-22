@@ -47,6 +47,7 @@ void NoteList::addNote(Note *note)
 {
     connect(note, SIGNAL(removeRequested(Note*)), this, SLOT(destroyNote(Note*)));
     connect(note, SIGNAL(moveRequested(Note*)), this, SLOT(requestMoveNote(Note*)));
+    connect(note, SIGNAL(moveInDirectionRequested(Note*,int)), this, SLOT(requestMoveNoteInDirection(Note*,int)));
 
     ui->noteContainer->layout()->addWidget(note);
 
@@ -55,7 +56,12 @@ void NoteList::addNote(Note *note)
 
 void NoteList::requestMoveNote(Note *note)
 {
-    emit noteMoveRequested(this, note);
+    emit moveNoteRequested(this, note);
+}
+
+void NoteList::requestMoveNoteInDirection(Note *note, int direction)
+{
+    emit moveNoteInDirectionRequested(this, note, direction);
 }
 
 bool NoteList::hasUnsavedChanges()

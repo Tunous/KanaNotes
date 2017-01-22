@@ -48,6 +48,7 @@ void Note::on_editButton_clicked()
 
     connect(dialog, SIGNAL(removeRequested()), this, SLOT(remove()));
     connect(dialog, SIGNAL(moveRequested()), this, SLOT(requestMove()));
+    connect(dialog, SIGNAL(moveInDirectionRequested(int)), this, SLOT(requestMoveInDirection(int)));
     connect(dialog, SIGNAL(textChanged(QString)), this, SLOT(setText(QString)));
 
     dialog->exec();
@@ -62,6 +63,11 @@ void Note::on_editButton_clicked()
 void Note::requestMove()
 {
     emit moveRequested(this);
+}
+
+void Note::requestMoveInDirection(int direction)
+{
+    emit moveInDirectionRequested(this, direction);
 }
 
 void Note::closeDialog()

@@ -27,6 +27,7 @@ public:
 signals:
     void removeRequested(Note *note);
     void moveRequested(Note *note);
+    void moveInDirectionRequested(Note *note, int direction);
 
 private slots:
     void on_editButton_clicked();
@@ -34,6 +35,7 @@ private slots:
     void setText(const QString &text);
     void remove();
     void requestMove();
+    void requestMoveInDirection(int direction);
 
 private:
     Ui::Note *ui;
