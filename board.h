@@ -47,7 +47,7 @@ private:
 
     NoteList *getList(int index);
 
-    void addEmptyList();
+    void addNewList();
     int selectList(int currentIndex);
 };
 

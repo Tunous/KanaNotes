@@ -135,9 +135,16 @@ void Board::addList(NoteList *list)
     edited = true;
 }
 
-void Board::addEmptyList()
+void Board::addNewList()
 {
-    addList(new NoteList(""));
+    QString text = ui->addListInput->text().trimmed();
+    ui->addListInput->clear();
+
+    if (text.isEmpty()) {
+        return;
+    }
+
+    addList(new NoteList(text));
 }
 
 void Board::destroyList(NoteList *list)
@@ -221,5 +228,5 @@ void Board::moveListInDirection(NoteList *list, int direction)
 
 void Board::on_addListButton_clicked()
 {
-    addEmptyList();
+    addNewList();
 }
