@@ -42,6 +42,23 @@ void Note::remove()
     emit removeRequested(this);
 }
 
+void Note::requestMove()
+{
+    emit moveRequested(this);
+}
+
+void Note::requestMoveInDirection(int direction)
+{
+    emit moveInDirectionRequested(this, direction);
+}
+
+void Note::closeDialog()
+{
+    if (dialog != NULL) {
+        dialog->close();
+    }
+}
+
 void Note::on_editButton_clicked()
 {
     dialog = new NoteDialog(getText());
@@ -58,21 +75,4 @@ void Note::on_editButton_clicked()
     }
 
     dialog = NULL;
-}
-
-void Note::requestMove()
-{
-    emit moveRequested(this);
-}
-
-void Note::requestMoveInDirection(int direction)
-{
-    emit moveInDirectionRequested(this, direction);
-}
-
-void Note::closeDialog()
-{
-    if (dialog != NULL) {
-        dialog->close();
-    }
 }

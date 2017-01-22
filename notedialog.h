@@ -26,11 +26,8 @@ signals:
 private slots:
     void on_removeButton_clicked();
     void on_lineEdit_textEdited(const QString &arg1);
-
     void on_moveToListButton_clicked();
-
     void on_moveLeftButton_clicked();
-
     void on_moveRightButton_clicked();
 
 private:

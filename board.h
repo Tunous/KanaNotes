@@ -20,19 +20,19 @@ public:
     explicit Board(QString filename, QWidget *parent = 0);
     ~Board();
 
+    bool hasUnsavedChanges();
     void addList(NoteList *list);
 
     void saveAs(QString fileName);
     void save();
 
-    bool hasUnsavedChanges();
     QString getName();
-
-    QList<QString> getListNames();
 
 private slots:
     void on_addListButton_clicked();
+
     void destroyList(NoteList *list);
+
     void moveNote(NoteList *list, Note *note);
     void moveNoteInDirection(NoteList *list, Note *note, int direction);
     void moveListInDirection(NoteList *list, int direction);
@@ -42,13 +42,13 @@ private:
     QString savedFileName;
     bool edited;
 
+    void loadFromFile(QString fileName);
+    void parseFile(QTextStream &stream);
+
+    NoteList *getList(int index);
+
     void addEmptyList();
     int selectList();
-
-    void loadFromFile(QString filename);
-
-    void parseFile(QTextStream &stream);
-    NoteList *getList(int index);
 };
 
 #endif // BOARD_H

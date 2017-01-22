@@ -19,18 +19,21 @@ Board* MainWindow::getBoard(int index)
     return dynamic_cast<Board*>(widget);
 }
 
-void MainWindow::openBoard()
-{
-    QString fileName = QFileDialog::getOpenFileName(this, "Open board...", QDir::currentPath(), "Text files (*.txt)");
-    addBoard(fileName);
-}
-
 void MainWindow::setBoardActionsEnabled(bool enabled)
 {
     ui->actionSave->setEnabled(enabled);
     ui->actionSaveAs->setEnabled(enabled);
     ui->actionCloseBoard->setEnabled(enabled);
     ui->actionCloseAllBoards->setEnabled(enabled);
+}
+
+void MainWindow::openBoard()
+{
+    QString fileName = QFileDialog::getOpenFileName(
+                this, "Open board...",
+                QDir::currentPath(),
+                "Text files (*.txt)");
+    addBoard(fileName);
 }
 
 void MainWindow::closeBoard(int index)
@@ -40,7 +43,7 @@ void MainWindow::closeBoard(int index)
     }
 
     Board *board = getBoard(index);
-    if (board == NULL || !canClose(board)) {
+    if (!canClose(board)) {
         return;
     }
 
@@ -115,7 +118,12 @@ void MainWindow::saveBoard()
 
 void MainWindow::saveBoardAs()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, "Zapisz jako...", QDir::currentPath(), "Text files (*.txt)");
+    QString fileName = QFileDialog::getSaveFileName(
+                this,
+                "Save as...",
+                QDir::currentPath(),
+                "Text files (*.txt)");
+
     if (fileName == NULL) {
         return;
     }
@@ -125,7 +133,12 @@ void MainWindow::saveBoardAs()
 
 void MainWindow::createBoard()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, "Nowa tablica...", QDir::currentPath(), "Text files (*.txt)");
+    QString fileName = QFileDialog::getSaveFileName(
+                this,
+                "New board...",
+                QDir::currentPath(),
+                "Text files (*.txt)");
+
     addBoard(fileName);
 }
 
@@ -142,6 +155,16 @@ void MainWindow::addBoard(QString fileName)
     ui->tabWidget->setCurrentIndex(index);
 
     setBoardActionsEnabled(true);
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    for (int i = 0; i < ui->tabWidget->count(); i++) {
+        Board *board = getBoard(i);
+        if (!canClose(board)) {
+            event->ignore();
+        }
+    }
 }
 
 void MainWindow::on_tabWidget_tabCloseRequested(int index)
@@ -182,14 +205,4 @@ void MainWindow::on_actionCloseAllBoards_triggered()
 void MainWindow::on_actionExit_triggered()
 {
     close();
-}
-
-void MainWindow::closeEvent(QCloseEvent *event)
-{
-    for (int i = 0; i < ui->tabWidget->count(); i++) {
-        Board *board = getBoard(i);
-        if (!canClose(board)) {
-            event->ignore();
-        }
-    }
 }

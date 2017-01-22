@@ -32,6 +32,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    Board* getBoard(int index);
+
     void closeBoard(int index);
     void closeAllBoards();
     void closeSelectedBoard();
@@ -43,7 +45,6 @@ private:
     void setBoardActionsEnabled(bool enabled);
     void addBoard(QString fileName);
 
-    Board* getBoard(int index);
     bool canClose(Board *board);
 
     void closeEvent(QCloseEvent *event);
