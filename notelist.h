@@ -33,6 +33,7 @@ signals:
     void removeRequested(NoteList *list);
     void moveNoteRequested(NoteList *list, Note *note);
     void moveNoteInDirectionRequested(NoteList *list, Note *note, int direction);
+    void moveInDirectionRequested(NoteList *list, int direction);
 
 private slots:
     void on_addNoteButton_clicked();
@@ -44,6 +45,10 @@ private slots:
     void requestMoveNote(Note *note);
     void destroyNote(Note *note);
     void requestMoveNoteInDirection(Note *note, int direction);
+
+    void on_actionMoveRight_triggered();
+
+    void on_actionMoveLeft_triggered();
 
 private:
     Ui::NoteList *ui;

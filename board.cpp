@@ -56,9 +56,10 @@ void Board::loadFromFile(QString fileName)
 
 void Board::addList(NoteList *list)
 {
-    connect(list, SIGNAL(removeRequested(NoteList*)), this, SLOT(removeList(NoteList*)));
+    connect(list, SIGNAL(removeRequested(NoteList*)), this, SLOT(destroyList(NoteList*)));
     connect(list, SIGNAL(noteMoveRequested(NoteList*,Note*)), this, SLOT(moveNote(NoteList*,Note*)));
     connect(list, SIGNAL(moveNoteInDirectionRequested(NoteList*,Note*,int)), this, SLOT(moveNoteInDirection(NoteList*,Note*,int)));
+    connect(list, SIGNAL(moveInDirectionRequested(NoteList*,int)), this, SLOT(moveListInDirection(NoteList*,int)));
 
     ui->listContainer->layout()->addWidget(list);
 
@@ -101,7 +102,33 @@ void Board::moveNoteInDirection(NoteList *list, Note *note, int direction)
     getList(newIndex)->addNote(note);
 }
 
-void Board::removeList(NoteList *list)
+void Board::moveListInDirection(NoteList *list, int direction)
+{
+    QLayout *listsLayout = ui->listContainer->layout();
+    int currentIndex = listsLayout->indexOf(list);
+
+    int count = listsLayout->count();
+
+    if (direction < 0 && currentIndex > 0) {
+        QLayoutItem *item = listsLayout->takeAt(currentIndex - 1);
+        listsLayout->addItem(item);
+
+        for (int i = 0; i < count - currentIndex - 1; i++) {
+            item = listsLayout->takeAt(currentIndex);
+            listsLayout->addItem(item);
+        }
+    } else if (direction > 0 && currentIndex < count - 1) {
+        QLayoutItem *item = listsLayout->takeAt(currentIndex);
+        listsLayout->addItem(item);
+
+        for (int i = 0; i < count - currentIndex - 2; i++) {
+            item = listsLayout->takeAt(currentIndex + 1);
+            listsLayout->addItem(item);
+        }
+    }
+}
+
+void Board::destroyList(NoteList *list)
 {
     list->deleteLater();
     edited = true;

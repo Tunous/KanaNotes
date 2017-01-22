@@ -32,9 +32,10 @@ public:
 
 private slots:
     void on_addListButton_clicked();
-    void removeList(NoteList *list);
+    void destroyList(NoteList *list);
     void moveNote(NoteList *list, Note *note);
     void moveNoteInDirection(NoteList *list, Note *note, int direction);
+    void moveListInDirection(NoteList *list, int direction);
 
 private:
     Ui::Board *ui;

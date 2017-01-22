@@ -148,3 +148,13 @@ void NoteList::on_newNoteInput_returnPressed()
 {
     addNewNote();
 }
+
+void NoteList::on_actionMoveRight_triggered()
+{
+    emit moveInDirectionRequested(this, 1);
+}
+
+void NoteList::on_actionMoveLeft_triggered()
+{
+    emit moveInDirectionRequested(this, -1);
+}
