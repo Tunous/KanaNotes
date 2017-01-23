@@ -44,3 +44,6 @@ FORMS    += mainwindow.ui \
     board.ui \
     notedialog.ui \
     selectlistdialog.ui
+
+RESOURCES += \
+    img.qrc

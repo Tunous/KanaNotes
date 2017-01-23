@@ -1,14 +1,12 @@
 #include "board.h"
 #include "ui_board.h"
 
-Board::Board(QString fileName, QWidget *parent) :
+Board::Board(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Board),
     edited(false)
 {
     ui->setupUi(this);
-
-    loadFromFile(fileName);
 }
 
 Board::~Board()
@@ -68,6 +66,10 @@ NoteList* Board::getList(int index)
 
 QString Board::getName()
 {
+    if (savedFileName == NULL) {
+        return "New Board";
+    }
+
     QFileInfo fileInfo(savedFileName);
     return fileInfo.fileName();
 }
@@ -90,7 +92,16 @@ bool Board::hasUnsavedChanges()
 
 void Board::save()
 {
-    saveAs(savedFileName);
+    if (savedFileName == NULL) {
+        QString fileName = QFileDialog::getSaveFileName(
+                    this,
+                    "New board...",
+                    QDir::currentPath(),
+                    "Text files (*.txt)");
+        saveAs(fileName);
+    } else {
+        saveAs(savedFileName);
+    }
 }
 
 void Board::saveAs(QString fileName)
@@ -121,6 +132,7 @@ void Board::saveAs(QString fileName)
     file.close();
 
     edited = false;
+    savedFileName = fileName;
 }
 
 void Board::addList(NoteList *list)

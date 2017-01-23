@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QFile>
 #include <QFileInfo>
+#include <QFileDialog>
 
 #include "notelist.h"
 #include "selectlistdialog.h"
@@ -17,11 +18,12 @@ class Board : public QWidget
     Q_OBJECT
 
 public:
-    explicit Board(QString filename, QWidget *parent = 0);
+    explicit Board(QWidget *parent = 0);
     ~Board();
 
     bool hasUnsavedChanges();
     void addList(NoteList *list);
+    void loadFromFile(QString fileName);
 
     void saveAs(QString fileName);
     void save();
@@ -42,7 +44,6 @@ private:
     QString savedFileName;
     bool edited;
 
-    void loadFromFile(QString fileName);
     void parseFile(QTextStream &stream);
 
     NoteList *getList(int index);

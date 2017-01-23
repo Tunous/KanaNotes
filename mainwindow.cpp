@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    createBoard();
 }
 
 MainWindow::~MainWindow()
@@ -106,7 +108,10 @@ bool MainWindow::canClose(Board *board)
 
 void MainWindow::saveBoard()
 {
-    getBoard(ui->tabWidget->currentIndex())->save();
+    int index = ui->tabWidget->currentIndex();
+    Board *board = getBoard(index);
+    board->save();
+    ui->tabWidget->setTabText(index, board->getName());
 }
 
 void MainWindow::saveBoardAs()
@@ -121,30 +126,26 @@ void MainWindow::saveBoardAs()
         return;
     }
 
-    getBoard(ui->tabWidget->currentIndex())->saveAs(fileName);
+    int index = ui->tabWidget->currentIndex();
+    Board *board = getBoard(index);
+    board->saveAs(fileName);
+    ui->tabWidget->setTabText(index, board->getName());
 }
 
 void MainWindow::createBoard()
 {
-    QString fileName = QFileDialog::getSaveFileName(
-                this,
-                "New board...",
-                QDir::currentPath(),
-                "Text files (*.txt)");
-
-    addBoard(fileName, true);
+    addBoard(NULL, true);
 }
 
 void MainWindow::addBoard(QString fileName, bool createLists)
 {
-    if (fileName == NULL) {
-        return;
+    Board *board = new Board();
+
+    if (fileName != NULL) {
+        board->loadFromFile(fileName);
     }
 
-    QFileInfo fileInfo(fileName);
-
-    Board *board = new Board(fileName);
-    int index = ui->tabWidget->addTab(board, fileInfo.fileName());
+    int index = ui->tabWidget->addTab(board, board->getName());
     ui->tabWidget->setCurrentIndex(index);
 
     setBoardActionsEnabled(true);
