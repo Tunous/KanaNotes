@@ -56,6 +56,23 @@
    </widget>
    <addaction name="menuFile"/>
   </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNewBoard"/>
+   <addaction name="actionOpenBoard"/>
+   <addaction name="actionSave"/>
+  </widget>
   <action name="actionExit">
    <property name="icon">
     <iconset theme="application-exit">
