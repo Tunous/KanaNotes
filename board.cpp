@@ -126,13 +126,22 @@ void Board::saveAs(QString fileName)
 
         out << endl;
 
-        list->saved();
+        list->markAsSaved();
     }
     file.flush();
     file.close();
 
     edited = false;
     savedFileName = fileName;
+}
+
+void Board::markAsSaved()
+{
+    edited = false;
+
+    for (int i = 0; i < ui->listContainer->layout()->count(); i++) {
+        getList(i)->markAsSaved();
+    }
 }
 
 void Board::addList(NoteList *list)

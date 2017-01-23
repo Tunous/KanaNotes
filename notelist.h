@@ -23,7 +23,7 @@ public:
     bool hasUnsavedChanges();
     QString getName();
     QList<QString> getNotes();
-    void saved();
+    void markAsSaved();
     void addNote(Note *note);
 
 public slots:

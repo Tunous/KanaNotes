@@ -155,6 +155,8 @@ void MainWindow::addBoard(QString fileName, bool createLists)
         board->addList(new NoteList("Doing"));
         board->addList(new NoteList("Done"));
     }
+
+    board->markAsSaved();
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

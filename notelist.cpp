@@ -23,7 +23,7 @@ NoteList::NoteList(QString name, QList<QString> *notes, QWidget *parent) :
 
     ui->actionsButton->setMenu(menu);
 
-    saved();
+    markAsSaved();
 }
 
 NoteList::~NoteList()
@@ -31,7 +31,7 @@ NoteList::~NoteList()
     delete ui;
 }
 
-void NoteList::saved()
+void NoteList::markAsSaved()
 {
     edited = false;
 

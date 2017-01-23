@@ -27,6 +27,7 @@ public:
 
     void saveAs(QString fileName);
     void save();
+    void markAsSaved();
 
     QString getName();
 
